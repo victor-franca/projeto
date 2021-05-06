@@ -1,4 +1,4 @@
-package Gerais;
+package gerais;
 
 public class UsuarioLongarNoSistema {
 	private String usuario;

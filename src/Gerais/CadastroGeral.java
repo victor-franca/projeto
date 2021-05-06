@@ -1,4 +1,4 @@
-package Gerais;
+package gerais;
 
 import java.util.ArrayList;
 import java.util.List;

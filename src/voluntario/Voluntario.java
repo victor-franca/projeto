@@ -1,6 +1,6 @@
-package modelo;
+package voluntario;
 
-import Gerais.UsuarioLongarNoSistema;
+import gerais.UsuarioLongarNoSistema;
 
 public class Voluntario extends UsuarioLongarNoSistema{
 
