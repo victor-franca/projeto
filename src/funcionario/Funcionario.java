@@ -1,19 +1,23 @@
 package funcionario;
 
+import java.util.List;
+
 import gerais.UsuarioLongarNoSistema;
 import voluntario.Doacao;
 
-public class Funcionario  {
-	
+public class Funcionario {
+
 	UsuarioLongarNoSistema usuario;
 	Doacao doacao;
-	
-	public String aceitarDoacao() {
-		
-		
-		
-		
-		
-	
+	List<Doacao> listDoacao;
+
+	public String aceitarDoacao(int decisao) {
+		listDoacao.remove(decisao);
+		return "REMOVIDO COM SUCESSO";
 	}
+	
+	
+	
+	
+	
 }

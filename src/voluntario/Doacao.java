@@ -2,7 +2,6 @@ package voluntario;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Doacao {
 	
@@ -10,25 +9,35 @@ public class Doacao {
 	private Date dataEntrega;
 	private String formaDeEntregaDaDoacao;
 	private String quantidadeDoProdutoObjeto;
+	private int repeticaoDaDoacao;
 	private double valor;
 	
 	
 	ArrayList <Doacao> listDoacao = new ArrayList<>();
 	
+	
+	
 	public Doacao(String produtoObjeto, Date dataEntrega, String formaDeEntregaDaDoacao,
-			String quantidadeDoProdutoObjeto) {
+			String quantidadeDoProdutoObjeto, int repeticaoDaDoacao) {
 		this.produtoObjeto = produtoObjeto;
 		this.dataEntrega = dataEntrega;
 		this.formaDeEntregaDaDoacao = formaDeEntregaDaDoacao;
 		this.quantidadeDoProdutoObjeto = quantidadeDoProdutoObjeto;
+		this.repeticaoDaDoacao = repeticaoDaDoacao;
 	}
 
-	
-	public Doacao(Date dataEntrega, String formaDeEntregaDaDoacao, double valor) {
+
+
+	public Doacao(Date dataEntrega, String formaDeEntregaDaDoacao, int repeticaoDaDoacao, double valor) {
+		super();
 		this.dataEntrega = dataEntrega;
 		this.formaDeEntregaDaDoacao = formaDeEntregaDaDoacao;
+		this.repeticaoDaDoacao = repeticaoDaDoacao;
 		this.valor = valor;
 	}
+
+
+
 
 
 	public String getProdutoObjeto() {
@@ -89,8 +98,8 @@ public class Doacao {
 		 listDoacao.add(doacao);
 	}
 	
-	public void removerDoacao (int numero) {
-		listDoacao.remove(numero);
+	public void removerDoacao (Doacao doacao) {
+		listDoacao.remove(doacao);
 	}
 
 

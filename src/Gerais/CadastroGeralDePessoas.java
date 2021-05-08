@@ -3,22 +3,22 @@ package gerais;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CadastroGeral {
+public class CadastroGeralDePessoas {
 	private String nome;
 	private String cpf;
 	private int idade ;
 	private String cnpj;
 	
-	List <CadastroGeral> lista = new ArrayList <> ();
+	List <CadastroGeralDePessoas> lista = new ArrayList <> ();
 
-	public CadastroGeral(String nome, String cpf, int idade) {
+	public CadastroGeralDePessoas(String nome, String cpf, int idade) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.idade = idade;
 	}
 
 	
-	public CadastroGeral(String nome, String cnpj) {
+	public CadastroGeralDePessoas(String nome, String cnpj) {
 		this.nome = nome;
 		this.cnpj = cnpj;
 	}
@@ -46,11 +46,11 @@ public class CadastroGeral {
 	
 	
 	
-	public void cadastrarNovoVoluntario (CadastroGeral individuo) {
+	public void cadastrarNovoVoluntario (CadastroGeralDePessoas individuo) {
 		 lista.add(individuo);
 	}
 	
-	public void removerVoluntario (CadastroGeral individuo) {
+	public void removerVoluntario (CadastroGeralDePessoas individuo) {
 		lista.remove(individuo);
 	}
 
