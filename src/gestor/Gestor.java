@@ -1,4 +1,4 @@
-package modelo;
+package gestor;
 
 public class Gestor  {
 	
