@@ -11,7 +11,7 @@ public class Doacao {
 	private String quantidadeDoProdutoObjeto;
 	private int repeticaoDaDoacao;
 	private double valor;
-	
+	//tem que ter a informação de quem vai doar (voluntario)
 	
 	ArrayList <Doacao> listDoacao = new ArrayList<>();
 	

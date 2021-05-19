@@ -5,6 +5,24 @@
  */
 package view;
 
+import funcionario.CadastroEventos;
+import funcionario.CadastroTrabalho;
+import funcionario.Funcionario;
+import gerais.CadastroGeral;
+import java.awt.ComponentOrientation;
+import java.awt.Label;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+import voluntario.VoluntarioCNPJ;
+import voluntario.VoluntarioCPF;
+
 /**
  *
  * @author Victor
@@ -12,10 +30,16 @@ package view;
 public class MenuFuncionario extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuFuncionario
+     * Creates new form MenuVoluntario
      */
+    public static ArrayList <CadastroGeral> listaCadastroGeral = new ArrayList <> ();
+    public static ArrayList <CadastroEventos> listaCadastroEventos = new ArrayList<>();
     public MenuFuncionario() {
         initComponents();
+        limparCampos();
+        setMascara("##/##/####");
+        
+        
     }
 
     /**
@@ -27,119 +51,509 @@ public class MenuFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        tpAbas = new javax.swing.JTabbedPane();
+        pCadastrarNovoVoluntario = new javax.swing.JPanel();
+        lNome = new javax.swing.JLabel();
+        lCPFCNPJ = new javax.swing.JLabel();
+        tfRecebeNome = new javax.swing.JTextField();
+        tfRecebeCPFCNPJ = new javax.swing.JTextField();
+        bSalvarVoluntario = new javax.swing.JButton();
+        bRemoverVoluntario = new javax.swing.JButton();
+        spListarFuncionarios = new javax.swing.JScrollPane();
+        taListarVoluntarios = new javax.swing.JTextArea();
+        lInformeONumeroParaRemoveroVoluntario = new javax.swing.JLabel();
+        tfRecebeNumeroParaRemoverVoluntario = new javax.swing.JTextField();
+        lIdade = new javax.swing.JLabel();
+        tfRecebeIdade = new javax.swing.JTextField();
+        lEndereco = new javax.swing.JLabel();
+        tfRecebeEndereco = new javax.swing.JTextField();
+        pAceitarDoacao = new javax.swing.JPanel();
+        lDoacoes = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taListarDoacoes = new javax.swing.JTextArea();
+        bRemoverDoacao = new javax.swing.JToggleButton();
+        lDoacaoNaoRemovidasSeramConsideradasComoAceitas = new javax.swing.JLabel();
+        lInformeONumeroDaDoacaoQueDesejaRemover = new javax.swing.JLabel();
+        tfRecebendoDoacaoParaRemover = new javax.swing.JTextField();
+        pCadastroDeEventos = new javax.swing.JPanel();
         lTitulo = new javax.swing.JLabel();
-        tbCadastrarVoluntario = new javax.swing.JToggleButton();
-        tbDoacao = new javax.swing.JToggleButton();
-        tbCadastroDeEventos = new javax.swing.JToggleButton();
-        tbCadastroDeTrabalhos = new javax.swing.JToggleButton();
+        lValorGastoParaExecutarEvento = new javax.swing.JLabel();
+        tfRecebeValorGastoParExecutarEvento = new javax.swing.JTextField();
+        lObjetivoDoEvento = new javax.swing.JLabel();
+        tfRecebeObjetivoDoEvento = new javax.swing.JTextField();
+        lDataDoEvento = new javax.swing.JLabel();
+        lDuracaoDoEvento = new javax.swing.JLabel();
+        tfRecebeDuracaoDoEvento = new javax.swing.JTextField();
+        lMetaDeArrecadacaoDoEvento = new javax.swing.JLabel();
+        tfRecebeMetaDeArrecadacaoDoEvento = new javax.swing.JTextField();
+        lFuncionarioResposavel = new javax.swing.JLabel();
+        tfRecebeFuncionarioResposavel = new javax.swing.JTextField();
+        bSalvarEvento = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taListaEventos = new javax.swing.JTextArea();
+        bRemoveEvento = new javax.swing.JButton();
+        tfRecebeNumeroDeEventoParaRemover = new javax.swing.JTextField();
+        lInformeONumeroParaRemoverEvento = new javax.swing.JLabel();
+        lTipoDeTrabalhoParaVoluntario = new javax.swing.JLabel();
+        tfRecebeTipoDeTrabalhoParaVoluntario = new javax.swing.JTextField();
+        lVagas = new javax.swing.JLabel();
+        tfRecebeVagas = new javax.swing.JTextField();
+        ftfRecebendoData = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
+        tpAbas.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+
+        lNome.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lNome.setText("Nome:");
+
+        lCPFCNPJ.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lCPFCNPJ.setText("CPF/CNPJ:");
+
+        tfRecebeNome.setText("jTextField1");
+
+        tfRecebeCPFCNPJ.setText("jTextField2");
+
+        bSalvarVoluntario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        bSalvarVoluntario.setText("Salvar");
+        bSalvarVoluntario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSalvarVoluntarioActionPerformed(evt);
+            }
+        });
+
+        bRemoverVoluntario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        bRemoverVoluntario.setText("Remover");
+        bRemoverVoluntario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRemoverVoluntarioActionPerformed(evt);
+            }
+        });
+
+        taListarVoluntarios.setColumns(20);
+        taListarVoluntarios.setRows(5);
+        spListarFuncionarios.setViewportView(taListarVoluntarios);
+
+        lInformeONumeroParaRemoveroVoluntario.setText("Informe o Numero Para Remover o Voluntário");
+
+        tfRecebeNumeroParaRemoverVoluntario.setText("jTextField3");
+        tfRecebeNumeroParaRemoverVoluntario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfRecebeNumeroParaRemoverVoluntarioActionPerformed(evt);
+            }
+        });
+
+        lIdade.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lIdade.setText("Idade:");
+
+        tfRecebeIdade.setText("jTextField1");
+
+        lEndereco.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lEndereco.setText("Endereço:");
+
+        tfRecebeEndereco.setText("jTextField2");
+
+        javax.swing.GroupLayout pCadastrarNovoVoluntarioLayout = new javax.swing.GroupLayout(pCadastrarNovoVoluntario);
+        pCadastrarNovoVoluntario.setLayout(pCadastrarNovoVoluntarioLayout);
+        pCadastrarNovoVoluntarioLayout.setHorizontalGroup(
+            pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                        .addComponent(spListarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bSalvarVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bRemoverVoluntario))
+                        .addGap(77, 77, 77))
+                    .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                        .addComponent(lInformeONumeroParaRemoveroVoluntario)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfRecebeNumeroParaRemoverVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lNome)
+                    .addComponent(lIdade)
+                    .addComponent(lEndereco)
+                    .addComponent(lCPFCNPJ))
+                .addGap(31, 31, 31)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfRecebeCPFCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(tfRecebeNome, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(tfRecebeIdade)
+                    .addComponent(tfRecebeEndereco))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        pCadastrarNovoVoluntarioLayout.setVerticalGroup(
+            pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lNome)
+                    .addComponent(tfRecebeNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lIdade)
+                    .addComponent(tfRecebeIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lEndereco)
+                    .addComponent(tfRecebeEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCPFCNPJ)
+                    .addComponent(tfRecebeCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addComponent(spListarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(bSalvarVoluntario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bRemoverVoluntario)
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lInformeONumeroParaRemoveroVoluntario)
+                            .addComponent(tfRecebeNumeroParaRemoverVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(82, 82, 82))))
         );
+
+        tpAbas.addTab("Cadastrar ou remover Voluntário", pCadastrarNovoVoluntario);
+
+        lDoacoes.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lDoacoes.setText("Doações");
+
+        taListarDoacoes.setColumns(20);
+        taListarDoacoes.setRows(5);
+        jScrollPane1.setViewportView(taListarDoacoes);
+
+        bRemoverDoacao.setText("Remover Doações");
+        bRemoverDoacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRemoverDoacaoActionPerformed(evt);
+            }
+        });
+
+        lDoacaoNaoRemovidasSeramConsideradasComoAceitas.setText("As doações que não forem removidas serão consideradas como aceitas  ");
+
+        lInformeONumeroDaDoacaoQueDesejaRemover.setText("Informe o Numero Da Doação que Deseja Remover");
+
+        tfRecebendoDoacaoParaRemover.setText("jTextField5");
+
+        javax.swing.GroupLayout pAceitarDoacaoLayout = new javax.swing.GroupLayout(pAceitarDoacao);
+        pAceitarDoacao.setLayout(pAceitarDoacaoLayout);
+        pAceitarDoacaoLayout.setHorizontalGroup(
+            pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
+                .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAceitarDoacaoLayout.createSequentialGroup()
+                        .addGap(0, 190, Short.MAX_VALUE)
+                        .addComponent(lDoacaoNaoRemovidasSeramConsideradasComoAceitas))
+                    .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
+                        .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
+                                .addGap(208, 208, 208)
+                                .addComponent(lDoacoes))
+                            .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lInformeONumeroDaDoacaoQueDesejaRemover)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfRecebendoDoacaoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAceitarDoacaoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bRemoverDoacao))
+        );
+        pAceitarDoacaoLayout.setVerticalGroup(
+            pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
+                .addComponent(lDoacoes)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(lDoacaoNaoRemovidasSeramConsideradasComoAceitas)
+                .addGap(63, 63, 63)
+                .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lInformeONumeroDaDoacaoQueDesejaRemover)
+                    .addComponent(tfRecebendoDoacaoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(bRemoverDoacao)
+                .addContainerGap(178, Short.MAX_VALUE))
+        );
+
+        tpAbas.addTab("Aceitar ou remover Doacão", pAceitarDoacao);
 
         lTitulo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lTitulo.setText("Menu Funcionário");
+        lTitulo.setText("Cadastrar Eventos");
 
-        tbCadastrarVoluntario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        tbCadastrarVoluntario.setText("Cadastrar Voluntário");
-        tbCadastrarVoluntario.addActionListener(new java.awt.event.ActionListener() {
+        lValorGastoParaExecutarEvento.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lValorGastoParaExecutarEvento.setText("Valor Gasto Para Executar Evento");
+
+        tfRecebeValorGastoParExecutarEvento.setText("jTextField1");
+
+        lObjetivoDoEvento.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lObjetivoDoEvento.setText("Objetivo Do Evento");
+
+        tfRecebeObjetivoDoEvento.setText("jTextField2");
+
+        lDataDoEvento.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lDataDoEvento.setText("Data Do Evento");
+
+        lDuracaoDoEvento.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lDuracaoDoEvento.setText("Duração Do Evento");
+
+        tfRecebeDuracaoDoEvento.setText("jTextField4");
+
+        lMetaDeArrecadacaoDoEvento.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lMetaDeArrecadacaoDoEvento.setText("Meta De Arrecadação Do Evento");
+
+        tfRecebeMetaDeArrecadacaoDoEvento.setText("jTextField5");
+
+        lFuncionarioResposavel.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lFuncionarioResposavel.setText("Funcionário Resposável");
+
+        tfRecebeFuncionarioResposavel.setText("jTextField6");
+
+        bSalvarEvento.setText("Salvar Evento");
+        bSalvarEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbCadastrarVoluntarioActionPerformed(evt);
+                bSalvarEventoActionPerformed(evt);
             }
         });
 
-        tbDoacao.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        tbDoacao.setText("Aceitar Doações");
-        tbDoacao.addActionListener(new java.awt.event.ActionListener() {
+        taListaEventos.setColumns(20);
+        taListaEventos.setRows(5);
+        jScrollPane2.setViewportView(taListaEventos);
+
+        bRemoveEvento.setText("Remover Evento");
+        bRemoveEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbDoacaoActionPerformed(evt);
+                bRemoveEventoActionPerformed(evt);
             }
         });
 
-        tbCadastroDeEventos.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        tbCadastroDeEventos.setText("Cadastrar Eventos");
-        tbCadastroDeEventos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbCadastroDeEventosActionPerformed(evt);
-            }
-        });
+        tfRecebeNumeroDeEventoParaRemover.setText("jTextField2");
 
-        tbCadastroDeTrabalhos.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        tbCadastroDeTrabalhos.setText("Cadastrar Trabalhos");
-        tbCadastroDeTrabalhos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbCadastroDeTrabalhosActionPerformed(evt);
-            }
-        });
+        lInformeONumeroParaRemoverEvento.setText("Informe o Numero Para Remover o Evento");
+
+        lTipoDeTrabalhoParaVoluntario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lTipoDeTrabalhoParaVoluntario.setText("Tipo de Trabalho Para Voluntariado");
+
+        tfRecebeTipoDeTrabalhoParaVoluntario.setText("jTextField1");
+
+        lVagas.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lVagas.setText("Vagas");
+
+        tfRecebeVagas.setText("jTextField4");
+
+        ftfRecebendoData.setText("jFormattedTextField1");
+
+        javax.swing.GroupLayout pCadastroDeEventosLayout = new javax.swing.GroupLayout(pCadastroDeEventos);
+        pCadastroDeEventos.setLayout(pCadastroDeEventosLayout);
+        pCadastroDeEventosLayout.setHorizontalGroup(
+            pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastroDeEventosLayout.createSequentialGroup()
+                        .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lTipoDeTrabalhoParaVoluntario)
+                            .addComponent(lVagas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfRecebeTipoDeTrabalhoParaVoluntario)
+                            .addComponent(tfRecebeVagas))
+                        .addGap(165, 165, 165))
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                                    .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lValorGastoParaExecutarEvento)
+                                        .addComponent(lObjetivoDoEvento)
+                                        .addComponent(lDataDoEvento)
+                                        .addComponent(lDuracaoDoEvento))
+                                    .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(tfRecebeValorGastoParExecutarEvento))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastroDeEventosLayout.createSequentialGroup()
+                                            .addGap(17, 17, 17)
+                                            .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(tfRecebeObjetivoDoEvento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tfRecebeDuracaoDoEvento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(ftfRecebendoData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lFuncionarioResposavel)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastroDeEventosLayout.createSequentialGroup()
+                                    .addComponent(lMetaDeArrecadacaoDoEvento)
+                                    .addGap(25, 25, 25)
+                                    .addComponent(tfRecebeMetaDeArrecadacaoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfRecebeFuncionarioResposavel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastroDeEventosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastroDeEventosLayout.createSequentialGroup()
+                                .addComponent(lTitulo)
+                                .addGap(191, 191, 191))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastroDeEventosLayout.createSequentialGroup()
+                                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                                        .addComponent(lInformeONumeroParaRemoverEvento)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfRecebeNumeroDeEventoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(bRemoveEvento))
+                                    .addComponent(bSalvarEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(43, 43, 43))))))
+        );
+        pCadastroDeEventosLayout.setVerticalGroup(
+            pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                .addComponent(lTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lValorGastoParaExecutarEvento)
+                    .addComponent(tfRecebeValorGastoParExecutarEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lObjetivoDoEvento)
+                    .addComponent(tfRecebeObjetivoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lDataDoEvento))
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ftfRecebendoData, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lDuracaoDoEvento)
+                    .addComponent(tfRecebeDuracaoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lMetaDeArrecadacaoDoEvento))
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfRecebeMetaDeArrecadacaoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lFuncionarioResposavel))
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfRecebeFuncionarioResposavel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lTipoDeTrabalhoParaVoluntario))
+                    .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfRecebeTipoDeTrabalhoParaVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lVagas)
+                    .addComponent(tfRecebeVagas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(bSalvarEvento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfRecebeNumeroDeEventoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lInformeONumeroParaRemoverEvento)
+                    .addComponent(bRemoveEvento))
+                .addContainerGap())
+        );
+
+        tpAbas.addTab("Cadastrar Eventos", pCadastroDeEventos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(lTitulo)
-                        .addGap(103, 103, 103))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tbCadastrarVoluntario)
-                            .addComponent(tbCadastroDeEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tbCadastroDeTrabalhos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(79, 79, 79)))
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(tpAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(tbCadastrarVoluntario)
-                .addGap(18, 18, 18)
-                .addComponent(tbDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tbCadastroDeEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tbCadastroDeTrabalhos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+            .addComponent(tpAbas)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbCadastrarVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbCadastrarVoluntarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tbCadastrarVoluntarioActionPerformed
+    private void bSalvarVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarVoluntarioActionPerformed
+        VoluntarioCPF voluntariocpf;
+        VoluntarioCNPJ voluntariocnpj;
+        String nome = tfRecebeNome.getText() ;
+        String idade = tfRecebeIdade.getText();
+        String endereço = tfRecebeEndereco.getText();
+        String cpfCNPJ = tfRecebeCPFCNPJ.getText();
+        int idadeInteiro = Integer.parseInt(idade);
+        int tamanhoDoDocumento = cpfCNPJ.length();
+        int i=listaCadastroGeral.size();
+        if (tamanhoDoDocumento == 11){
+            voluntariocpf = new VoluntarioCPF(cpfCNPJ,i+1, nome, idadeInteiro, endereço);
+            listaCadastroGeral.add(voluntariocpf);
+        }
+        else if (tamanhoDoDocumento == 14) {
+            voluntariocnpj = new VoluntarioCNPJ(cpfCNPJ,i+1, nome, idadeInteiro, endereço);
+            listaCadastroGeral.add(voluntariocnpj);
+         }
+        limparCampos();
+        taListarVoluntarios.setText(listaCadastroGeral.toString().replace("[", "").replace("]", ""));
+    }//GEN-LAST:event_bSalvarVoluntarioActionPerformed
 
-    private void tbDoacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbDoacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tbDoacaoActionPerformed
+    private void bRemoverVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverVoluntarioActionPerformed
+        String recebeValor = tfRecebeNumeroParaRemoverVoluntario.getText();
+        int numeroParaExcluir = Integer.parseInt(recebeValor);
+        listaCadastroGeral.remove(numeroParaExcluir-1);
+        limparCampos();
+        taListarVoluntarios.setText(listaCadastroGeral.toString().replace("[", "").replace("]", ""));
+    }//GEN-LAST:event_bRemoverVoluntarioActionPerformed
 
-    private void tbCadastroDeEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbCadastroDeEventosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tbCadastroDeEventosActionPerformed
+    private void bSalvarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarEventoActionPerformed
+        CadastroEventos ce;
+        double valorGastoParaExecutaOEvento;
+        String objetivoDoEvento;
+	Date dadaDoEvento;
+	String duracaoEvento;
+	double metaArrecadacaoEvento;
+	Funcionario funcionarioResposavelPeloEvento;
+        CadastroTrabalho cadastroTrabalho;
+        
+       
+        //JTextField tfRecebeDataEvento = new JFormattedTextField(setMascara("##/##/####"));   
+            
+            //ce = new CadastroEventos(valorGastoParaExecutaOEvento, objetivoDoEvento, dadaDoEvento, duracaoEvento, metaArrecadacaoEvento, funcionarioResposavelPeloEvento, cadastroTrabalho)
+        
+    }//GEN-LAST:event_bSalvarEventoActionPerformed
 
-    private void tbCadastroDeTrabalhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbCadastroDeTrabalhosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tbCadastroDeTrabalhosActionPerformed
+    private void bRemoveEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoveEventoActionPerformed
+       
+    }//GEN-LAST:event_bRemoveEventoActionPerformed
+
+    private void bRemoverDoacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDoacaoActionPerformed
+       //interface da doacao precisa ser feita
+    }//GEN-LAST:event_bRemoverDoacaoActionPerformed
+
+    private void tfRecebeNumeroParaRemoverVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRecebeNumeroParaRemoverVoluntarioActionPerformed
+        
+    }//GEN-LAST:event_tfRecebeNumeroParaRemoverVoluntarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,6 +581,7 @@ public class MenuFuncionario extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MenuFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -177,11 +592,78 @@ public class MenuFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton bRemoveEvento;
+    private javax.swing.JToggleButton bRemoverDoacao;
+    private javax.swing.JButton bRemoverVoluntario;
+    private javax.swing.JButton bSalvarEvento;
+    private javax.swing.JButton bSalvarVoluntario;
+    private javax.swing.JFormattedTextField ftfRecebendoData;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lCPFCNPJ;
+    private javax.swing.JLabel lDataDoEvento;
+    private javax.swing.JLabel lDoacaoNaoRemovidasSeramConsideradasComoAceitas;
+    private javax.swing.JLabel lDoacoes;
+    private javax.swing.JLabel lDuracaoDoEvento;
+    private javax.swing.JLabel lEndereco;
+    private javax.swing.JLabel lFuncionarioResposavel;
+    private javax.swing.JLabel lIdade;
+    private javax.swing.JLabel lInformeONumeroDaDoacaoQueDesejaRemover;
+    private javax.swing.JLabel lInformeONumeroParaRemoverEvento;
+    private javax.swing.JLabel lInformeONumeroParaRemoveroVoluntario;
+    private javax.swing.JLabel lMetaDeArrecadacaoDoEvento;
+    private javax.swing.JLabel lNome;
+    private javax.swing.JLabel lObjetivoDoEvento;
+    private javax.swing.JLabel lTipoDeTrabalhoParaVoluntario;
     private javax.swing.JLabel lTitulo;
-    private javax.swing.JToggleButton tbCadastrarVoluntario;
-    private javax.swing.JToggleButton tbCadastroDeEventos;
-    private javax.swing.JToggleButton tbCadastroDeTrabalhos;
-    private javax.swing.JToggleButton tbDoacao;
+    private javax.swing.JLabel lVagas;
+    private javax.swing.JLabel lValorGastoParaExecutarEvento;
+    private javax.swing.JPanel pAceitarDoacao;
+    private javax.swing.JPanel pCadastrarNovoVoluntario;
+    private javax.swing.JPanel pCadastroDeEventos;
+    private javax.swing.JScrollPane spListarFuncionarios;
+    private javax.swing.JTextArea taListaEventos;
+    private javax.swing.JTextArea taListarDoacoes;
+    private javax.swing.JTextArea taListarVoluntarios;
+    private javax.swing.JTextField tfRecebeCPFCNPJ;
+    private javax.swing.JTextField tfRecebeDuracaoDoEvento;
+    private javax.swing.JTextField tfRecebeEndereco;
+    private javax.swing.JTextField tfRecebeFuncionarioResposavel;
+    private javax.swing.JTextField tfRecebeIdade;
+    private javax.swing.JTextField tfRecebeMetaDeArrecadacaoDoEvento;
+    private javax.swing.JTextField tfRecebeNome;
+    private javax.swing.JTextField tfRecebeNumeroDeEventoParaRemover;
+    private javax.swing.JTextField tfRecebeNumeroParaRemoverVoluntario;
+    private javax.swing.JTextField tfRecebeObjetivoDoEvento;
+    private javax.swing.JTextField tfRecebeTipoDeTrabalhoParaVoluntario;
+    private javax.swing.JTextField tfRecebeVagas;
+    private javax.swing.JTextField tfRecebeValorGastoParExecutarEvento;
+    private javax.swing.JTextField tfRecebendoDoacaoParaRemover;
+    private javax.swing.JTabbedPane tpAbas;
     // End of variables declaration//GEN-END:variables
+
+    public void limparCampos (){
+        tfRecebeNome.setText(null);
+        tfRecebeIdade.setText(null);
+        tfRecebeEndereco.setText(null);
+        tfRecebeCPFCNPJ.setText(null);
+        tfRecebeNumeroParaRemoverVoluntario.setText(null);
+        tfRecebeValorGastoParExecutarEvento.setText(null);
+        tfRecebeObjetivoDoEvento.setText(null);
+        ftfRecebendoData.setText(null);
+        tfRecebeDuracaoDoEvento.setText(null);
+        tfRecebeFuncionarioResposavel.setText(null);
+        tfRecebeTipoDeTrabalhoParaVoluntario.setText(null);
+        tfRecebeVagas.setText(null);
+        tfRecebeNumeroDeEventoParaRemover.setText(null);
+        tfRecebeMetaDeArrecadacaoDoEvento.setText(null);
+    }
+    
+   public void setMascara(String mascara){
+    try{
+        MaskFormatter mask = new MaskFormatter(mascara);
+        mask.install(ftfRecebendoData);
+        }catch(java.text.ParseException ex){}
+   
+}
 }

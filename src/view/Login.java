@@ -6,9 +6,13 @@
 package view;
 
 import gerais.UsuarioLongarNoSistema;
+import java.util.Locale;
 import javax.crypto.AEADBadTagException;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,33 +23,16 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form MenuGestor
      */
-    
-    public Login() {
+    static String tipoDeMenu;
+    public Login(String tipoDeMenu) {
         initComponents();
-        //tfRecebeUsuario.setText(null);
-        //tfRecebeSenha.setText(null);
-    }
-    
-    String escolha;
-
-    public Login(String escolha) {
-        this.escolha = escolha;
+        tfRecebeUsuario.setText(null);
+        tfRecebeSenha.setText(null);
+        this.tipoDeMenu = tipoDeMenu;
     }
 
-    public String getEscolha() {
-        return escolha;
+    public Login() {
     }
-
-    public void setEscolha(String escolha) {
-        this.escolha = escolha;
-    }
-
-    @Override
-    public String toString() {
-        return "Login{" + "escolha=" + escolha + '}';
-    }
-    
-  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -156,23 +143,27 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
-        Menu menu = new Menu();
-        String s1 = "Gestor";
-        String s = "Funcionario";
-        System.out.println(getEscolha());
+
+        String usuarioGestor = "Gestor";
+        String usuarioFuncionario = "Funcionario";
+        String usuarioVoluntario = "Voluntario";
         UsuarioLongarNoSistema usuario = new UsuarioLongarNoSistema();
         usuario = new UsuarioLongarNoSistema(tfRecebeUsuario.getText(), tfRecebeSenha.getText());
-        if(s1.equals(escolha)){
+        msgDeLoginNoSistema(usuario.toString());
+        if(usuarioGestor.equals(tipoDeMenu)){
            MenuGestor mg = new MenuGestor();
            mg.setVisible(true);
            dispose(); 
        }
-        else if (s.equals(escolha)){
+        else if (usuarioFuncionario.equals(tipoDeMenu)){
             MenuFuncionario mf = new MenuFuncionario();
             mf.setVisible(true);
             dispose();
         }
-         
+       /* else if (usuarioVoluntario.equals(tipoDeMenu));
+         MenuFuncionario mv = new MenuFuncionario();
+            mv.setVisible(true);
+            dispose();*/
     }//GEN-LAST:event_bLoginActionPerformed
 
     /**
@@ -208,7 +199,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Login(tipoDeMenu).setVisible(true);
             }
         });
     }
@@ -224,10 +215,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField tfRecebeUsuario;
     // End of variables declaration//GEN-END:variables
 
-  
-    
-
-   
-   
-
+  public void msgDeLoginNoSistema (String msg){
+      JOptionPane.showMessageDialog(rootPane, msg);
+  }
+ 
 }

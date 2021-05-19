@@ -28,8 +28,11 @@ public class UsuarioLongarNoSistema {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+    @Override
+    public String toString() {
+        return "Bem-Vindx "+getUsuario()+" !";
+    }
 	
-	public String usuario_Longado () {
-		return "Usuario Longado com Sucesso!"+getUsuario();
-	}
+	
 }

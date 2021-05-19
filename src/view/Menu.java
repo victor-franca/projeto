@@ -18,6 +18,7 @@ public class Menu extends javax.swing.JFrame {
      */
     static String usuarioGestor = "Gestor";
     static String usuarioFuncionario = "Funcionario";
+    static String usuarioVoluntario = "Voluntario";
     public Menu() {
         initComponents();
   
@@ -73,9 +74,8 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(112, 112, 112)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bLoginVoluntario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(bLoginGestor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bLoginFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(bLoginGestor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bLoginFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(127, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,10 +87,10 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(bLoginFuncionario)
                 .addGap(18, 18, 18)
                 .addComponent(bLoginVoluntario)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
-        lTitulo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lTitulo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lTitulo.setText("MENU");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,7 +99,7 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
+                .addGap(172, 172, 172)
                 .addComponent(lTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -117,18 +117,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void bLoginGestorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginGestorActionPerformed
 
-        login();
+    login(usuarioGestor);
         
     }//GEN-LAST:event_bLoginGestorActionPerformed
 
     private void bLoginFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginFuncionarioActionPerformed
-        
-        
-        login();
+      
+        login(usuarioFuncionario);
     }//GEN-LAST:event_bLoginFuncionarioActionPerformed
 
     private void bLoginVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginVoluntarioActionPerformed
-        login();
+        login(usuarioVoluntario);
     }//GEN-LAST:event_bLoginVoluntarioActionPerformed
 
     /**
@@ -174,8 +173,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel lTitulo;
     // End of variables declaration//GEN-END:variables
 
-    public void login (){
-        Login l = new Login();
+    public void login (String tipoDeMenu){
+        Login l = new Login(tipoDeMenu);
         l.setVisible(true);
         dispose();
     }
