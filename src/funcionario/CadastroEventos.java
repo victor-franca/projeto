@@ -1,33 +1,38 @@
 package funcionario;
 
+import gerais.CadastroGeral;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
-import voluntario.VoluntarioCPF;
+
+import voluntario.CadastroVoluntarioCPF;
 
 public class CadastroEventos {
 	
 	private double valorGastoParaExecutaOEvento;
 	private String objetivoDoEvento;
-	private Date dadaDoEvento;
+	private String dataDoEvento;
 	private String duracaoEvento;
 	private double metaArrecadacaoEvento;
 	private Funcionario funcionarioResposavelPeloEvento;
         private CadastroTrabalho cadastroTrabalho;
+       
 
-        private SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+    public static ArrayList<CadastroGeral> cadastroVoluntarios = new ArrayList<>();    
         
-    public CadastroEventos(double valorGastoParaExecutaOEvento, String objetivoDoEvento, Date dadaDoEvento, String duracaoEvento, double metaArrecadacaoEvento, Funcionario funcionarioResposavelPeloEvento, CadastroTrabalho cadastroTrabalho) {
+    public CadastroEventos(double valorGastoParaExecutaOEvento, String objetivoDoEvento, String dadaDoEvento, String duracaoEvento, double metaArrecadacaoEvento, Funcionario funcionarioResposavelPeloEvento, CadastroTrabalho cadastroTrabalho) {
         this.valorGastoParaExecutaOEvento = valorGastoParaExecutaOEvento;
         this.objetivoDoEvento = objetivoDoEvento;
-        this.dadaDoEvento = dadaDoEvento;
+        this.dataDoEvento = dadaDoEvento;
         this.duracaoEvento = duracaoEvento;
         this.metaArrecadacaoEvento = metaArrecadacaoEvento;
         this.funcionarioResposavelPeloEvento = funcionarioResposavelPeloEvento;
         this.cadastroTrabalho = cadastroTrabalho;
     }
 
+    
     public double getValorGastoParaExecutaOEvento() {
         return valorGastoParaExecutaOEvento;
     }
@@ -44,12 +49,12 @@ public class CadastroEventos {
         this.objetivoDoEvento = objetivoDoEvento;
     }
 
-    public Date getDadaDoEvento() {
-        return dadaDoEvento;
+    public String getDadaDoEvento() {
+        return dataDoEvento;
     }
 
-    public void setDadaDoEvento(Date dadaDoEvento) {
-        this.dadaDoEvento = dadaDoEvento;
+    public void setDadaDoEvento(String dadaDoEvento) {
+        this.dataDoEvento = dadaDoEvento;
     }
 
     public String getDuracaoEvento() {
@@ -84,14 +89,30 @@ public class CadastroEventos {
         this.cadastroTrabalho = cadastroTrabalho;
     }
 
+    public String getDataDoEvento() {
+        return dataDoEvento;
+    }
+
+    public void setDataDoEvento(String dataDoEvento) {
+        this.dataDoEvento = dataDoEvento;
+    }
+
+    
+    public String cadastroEVerificacaoDeQuantidadeDeVagas (CadastroGeral cg){
+        if (cadastroTrabalho.getQuantidadeVagas()>= cadastroVoluntarios.size()){
+            cadastroVoluntarios.add(cg);
+           int diminuiVagas = cadastroTrabalho.getQuantidadeVagas() - 1;
+           cadastroTrabalho.setQuantidadeVagas(diminuiVagas);
+           return "Cadastro Efetuado com Sucesso";
+        }
+        else {
+            return "Não tem mais vagas diposniveis nesse evento";
+        }
+    }
+    
     @Override
     public String toString() {
-        return "CadastroEventos{" + "valorGastoParaExecutaOEvento=" + valorGastoParaExecutaOEvento + ", objetivoDoEvento=" + objetivoDoEvento + ", dadaDoEvento=" + sd.format(dadaDoEvento)+ ", duracaoEvento=" + duracaoEvento + ", metaArrecadacaoEvento=" + metaArrecadacaoEvento + ", funcionarioResposavelPeloEvento=" + funcionarioResposavelPeloEvento + ", cadastroTrabalho=" + cadastroTrabalho + '}';
+        return "Cadastro Eventos: \n" + " Valor Gasto Para Executa O Evento: " + valorGastoParaExecutaOEvento + ", Objetivo Do Evento: " + objetivoDoEvento + ", Dada Do Evento: " + dataDoEvento+ ", Duracão do Evento: " + duracaoEvento + ", Meta Arrecadacão do Evento: " + metaArrecadacaoEvento + ", Funcionario Resposavel Pelo Evento: " + funcionarioResposavelPeloEvento.getNome() +",Voluntarios No Evento"+ cadastroVoluntarios +"\nCadastro de Trabalho: " + cadastroTrabalho;
     }
-	
-	
-    
-	
-	
 
 }

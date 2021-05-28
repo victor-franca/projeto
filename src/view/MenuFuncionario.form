@@ -24,9 +24,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="tpAbas" min="-2" pref="552" max="-2" attributes="0"/>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="tpAbas" min="-2" pref="583" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,37 +60,53 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="spListarFuncionarios" min="-2" pref="341" max="-2" attributes="0"/>
-                              <EmptySpace pref="29" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="bSalvarVoluntario" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
-                                  <Component id="bRemoverVoluntario" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                              <EmptySpace pref="60" max="32767" attributes="0"/>
+                              <Component id="bSalvarVoluntario" min="-2" pref="79" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="lInformeONumeroParaRemoveroVoluntario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="tfRecebeNumeroParaRemoverVoluntario" min="-2" pref="133" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="bRemoverVoluntario" max="32767" attributes="0"/>
+                                  <Component id="jButton1" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lIdade" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lCPFCNPJ" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="tfRecebeCPFCNPJ" pref="134" max="32767" attributes="0"/>
-                          <Component id="tfRecebeNome" pref="134" max="32767" attributes="0"/>
-                          <Component id="tfRecebeIdade" max="32767" attributes="0"/>
-                          <Component id="tfRecebeEndereco" max="32767" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="tfRecebeIdade" min="-2" pref="134" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lIdade" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lCPFCNPJ" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="tfRecebeNome" min="-2" pref="134" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="tfRecebeEndereco" alignment="1" min="-2" pref="134" max="-2" attributes="0"/>
+                                              <Component id="tfRecebeCPFCNPJ" alignment="1" min="-2" pref="134" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Component id="cbComboEscolhePeriodoDeTempoDisponivel" min="-2" pref="134" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -115,30 +130,41 @@
                           <Component id="lEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfRecebeEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="cbComboEscolhePeriodoDeTempoDisponivel" min="-2" pref="21" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lCPFCNPJ" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfRecebeCPFCNPJ" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="spListarFuncionarios" min="-2" pref="103" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Component id="bSalvarVoluntario" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="bRemoverVoluntario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="108" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace pref="77" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lInformeONumeroParaRemoveroVoluntario" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="tfRecebeNumeroParaRemoverVoluntario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="bRemoverVoluntario" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -246,6 +272,42 @@
                 <Property name="text" type="java.lang.String" value="jTextField2"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="12" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Tempo Dispon&#xed;vel: "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbComboEscolhePeriodoDeTempoDisponivel">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Manh&#xe3;"/>
+                    <StringItem index="1" value="Tarde"/>
+                    <StringItem index="2" value="Noite"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbComboEscolhePeriodoDeTempoDisponivelActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="12" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Voltar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pAceitarDoacao">
@@ -263,7 +325,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="190" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="221" max="32767" attributes="0"/>
                               <Component id="lDoacaoNaoRemovidasSeramConsideradasComoAceitas" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -309,7 +371,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="bRemoverDoacao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="178" max="32767" attributes="0"/>
+                      <EmptySpace pref="228" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -376,80 +438,72 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lTipoDeTrabalhoParaVoluntario" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lVagas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfRecebeTipoDeTrabalhoParaVoluntario" max="32767" attributes="0"/>
-                                  <Component id="tfRecebeVagas" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lValorGastoParaExecutarEvento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lObjetivoDoEvento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lDataDoEvento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lDuracaoDoEvento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="tfRecebeValorGastoParExecutarEvento" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="tfRecebeObjetivoDoEvento" alignment="1" min="-2" pref="179" max="-2" attributes="0"/>
-                                                      <Component id="tfRecebeDuracaoDoEvento" alignment="1" min="-2" pref="179" max="-2" attributes="0"/>
-                                                      <Component id="ftfRecebendoData" alignment="1" min="-2" pref="179" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Component id="lFuncionarioResposavel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="lMetaDeArrecadacaoDoEvento" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                          <Component id="tfRecebeMetaDeArrecadacaoDoEvento" min="-2" pref="179" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="tfRecebeFuncionarioResposavel" alignment="1" min="-2" pref="179" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane2" alignment="0" min="-2" pref="355" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
+                              <Component id="lTitulo" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lInformeADataParaRemoverEvento" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="tfRecebeDataDeEventoParaRemover" min="-2" pref="133" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jScrollPane2" min="-2" pref="329" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lTitulo" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="lInformeONumeroParaRemoverEvento" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="tfRecebeNumeroDeEventoParaRemover" min="-2" pref="133" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                              <Component id="bRemoveEvento" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="bSalvarEvento" min="-2" pref="113" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="bSalvarEvento" min="-2" pref="113" max="-2" attributes="0"/>
+                                  <Component id="bRemoveEvento" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lValorGastoParaExecutarEvento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lDataDoEvento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lDuracaoDoEvento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lMetaDeArrecadacaoDoEvento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lFuncionarioResposavel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lInformeOTrabalhoNecessarioParaOsVoluntarios" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lObjetivoDoEvento" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lVagas" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="300" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="tfRecebeValorGastoParExecutarEvento" pref="179" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="tfRecebeDuracaoDoEvento" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tfRecebeMetaDeArrecadacaoDoEvento" pref="179" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="tfRecebeObjetivoDoEvento" alignment="0" pref="179" max="32767" attributes="0"/>
+                          <Component id="ftfRecebeData" pref="179" max="32767" attributes="0"/>
+                          <Component id="tfRecebeFuncionarioResposavel" pref="179" max="32767" attributes="0"/>
+                          <Component id="tfRecebeTrabalhoParaVoluntarios" max="32767" attributes="0"/>
+                          <Component id="tfRecebeVagas" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -457,74 +511,60 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lTitulo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lValorGastoParaExecutarEvento" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfRecebeValorGastoParExecutarEvento" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lObjetivoDoEvento" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfRecebeObjetivoDoEvento" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="lDataDoEvento" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lValorGastoParaExecutarEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRecebeValorGastoParExecutarEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lObjetivoDoEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRecebeObjetivoDoEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lDataDoEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ftfRecebeData" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lDuracaoDoEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRecebeDuracaoDoEvento" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lMetaDeArrecadacaoDoEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRecebeMetaDeArrecadacaoDoEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lFuncionarioResposavel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRecebeFuncionarioResposavel" alignment="3" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lInformeOTrabalhoNecessarioParaOsVoluntarios" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRecebeTrabalhoParaVoluntarios" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lVagas" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfRecebeVagas" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="28" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" min="-2" pref="115" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ftfRecebendoData" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="bSalvarEvento" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lDuracaoDoEvento" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfRecebeDuracaoDoEvento" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="lMetaDeArrecadacaoDoEvento" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfRecebeMetaDeArrecadacaoDoEvento" min="-2" pref="23" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="lFuncionarioResposavel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfRecebeFuncionarioResposavel" min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="lTipoDeTrabalhoParaVoluntario" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfRecebeTipoDeTrabalhoParaVoluntario" min="-2" pref="21" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lVagas" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfRecebeVagas" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="bSalvarEvento" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="84" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfRecebeNumeroDeEventoParaRemover" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lInformeONumeroParaRemoverEvento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfRecebeDataDeEventoParaRemover" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lInformeADataParaRemoverEvento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bRemoveEvento" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -645,25 +685,30 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRemoveEventoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfRecebeNumeroDeEventoParaRemover">
+            <Component class="javax.swing.JTextField" name="tfRecebeDataDeEventoParaRemover">
               <Properties>
                 <Property name="text" type="java.lang.String" value="jTextField2"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lInformeONumeroParaRemoverEvento">
+            <Component class="javax.swing.JLabel" name="lInformeADataParaRemoverEvento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Informe o Numero Para Remover o Evento"/>
+                <Property name="text" type="java.lang.String" value="Informe a Data do Evento Para Remover"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lTipoDeTrabalhoParaVoluntario">
+            <Component class="javax.swing.JFormattedTextField" name="ftfRecebeData">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lInformeOTrabalhoNecessarioParaOsVoluntarios">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tipo de Trabalho Para Voluntariado"/>
+                <Property name="text" type="java.lang.String" value="Informe o Trabalho necess&#xe1;rio para os Volunt&#xe1;rios"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfRecebeTipoDeTrabalhoParaVoluntario">
+            <Component class="javax.swing.JTextField" name="tfRecebeTrabalhoParaVoluntarios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="jTextField1"/>
               </Properties>
@@ -673,17 +718,12 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Vagas"/>
+                <Property name="text" type="java.lang.String" value="Vagas:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfRecebeVagas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField4"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JFormattedTextField" name="ftfRecebendoData">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+                <Property name="text" type="java.lang.String" value="jTextField2"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -5,7 +5,10 @@
  */
 package view;
 
+import funcionario.CadastroEventos;
+import gerais.CadastroGeral;
 import gerais.UsuarioLongarNoSistema;
+import java.util.ArrayList;
 import java.util.Locale;
 import javax.crypto.AEADBadTagException;
 import javax.swing.JButton;
@@ -13,6 +16,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import static view.MenuFuncionario.listaCadastroEventos;
 
 /**
  *
@@ -24,11 +28,16 @@ public class Login extends javax.swing.JFrame {
      * Creates new form MenuGestor
      */
     static String tipoDeMenu;
+    public static ArrayList <CadastroGeral> listaVoluntarios = new ArrayList <> (); 
     public Login(String tipoDeMenu) {
         initComponents();
         tfRecebeUsuario.setText(null);
         tfRecebeSenha.setText(null);
         this.tipoDeMenu = tipoDeMenu;
+    }
+    
+    public Login(ArrayList <CadastroGeral> listaVoluntarios){
+        this.listaVoluntarios = listaVoluntarios ;
     }
 
     public Login() {
@@ -143,12 +152,14 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
-
+        CadastroGeral cg = new CadastroGeral();
         String usuarioGestor = "Gestor";
         String usuarioFuncionario = "Funcionario";
         String usuarioVoluntario = "Voluntario";
         UsuarioLongarNoSistema usuario = new UsuarioLongarNoSistema();
-        usuario = new UsuarioLongarNoSistema(tfRecebeUsuario.getText(), tfRecebeSenha.getText());
+        String nome = tfRecebeUsuario.getText();
+        String senha = tfRecebeSenha.getText();
+        usuario = new UsuarioLongarNoSistema(nome, senha);
         msgDeLoginNoSistema(usuario.toString());
         if(usuarioGestor.equals(tipoDeMenu)){
            MenuGestor mg = new MenuGestor();
@@ -160,12 +171,20 @@ public class Login extends javax.swing.JFrame {
             mf.setVisible(true);
             dispose();
         }
-       /* else if (usuarioVoluntario.equals(tipoDeMenu));
-         MenuFuncionario mv = new MenuFuncionario();
-            mv.setVisible(true);
-            dispose();*/
+        for (int i=0; i< listaVoluntarios.size();i++){
+               CadastroGeral indiceNaLista = listaVoluntarios.get(i);
+               if (indiceNaLista.getNome().equals(nome) && usuarioVoluntario.equals(tipoDeMenu) ){
+                   MenuVoluntario mv = new MenuVoluntario(indiceNaLista);
+                   mv.setVisible(true);
+                   dispose();
+               }
+           }
+        /*else if (usuarioVoluntario.equals(tipoDeMenu) && listaVoluntarios.contains(cg)) {
+         MenuVoluntario mv = new MenuVoluntario();
+         mv.setVisible(true);
+         dispose();*/
     }//GEN-LAST:event_bLoginActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

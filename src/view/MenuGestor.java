@@ -5,6 +5,12 @@
  */
 package view;
 
+import funcionario.Funcionario;
+import gerais.CadastroGeral;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
+
 /**
  *
  * @author Victor
@@ -14,10 +20,12 @@ public class MenuGestor extends javax.swing.JFrame {
     /**
      * Creates new form MenuGestor
      */
+    public static ArrayList <Funcionario> listaFuncionario = new  ArrayList <>();
+    
     public MenuGestor() {
         initComponents();
+        limpaCampos();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,99 +35,273 @@ public class MenuGestor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        lTitulo = new javax.swing.JLabel();
-        bCadastrarFuncionario = new javax.swing.JButton();
-        bAnalisarReceitas = new javax.swing.JButton();
-        bAnalisarDespesas = new javax.swing.JButton();
-        bGerarRelatorioFinanceiro = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        tpAbas = new javax.swing.JTabbedPane();
+        pCadastroDeFuncionarios = new javax.swing.JPanel();
+        lTituloCadastroDeFuncionarios = new javax.swing.JLabel();
+        lNome = new javax.swing.JLabel();
+        tfRecebeNome = new javax.swing.JTextField();
+        lIdade = new javax.swing.JLabel();
+        tfRecebeIdade = new javax.swing.JTextField();
+        lEndereco = new javax.swing.JLabel();
+        tfRecebeEndereco = new javax.swing.JTextField();
+        lSalario = new javax.swing.JLabel();
+        tfRecebeSalario = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taListaFuncionarios = new javax.swing.JTextArea();
+        bBotaoSalvarFuncionario = new javax.swing.JButton();
+        lInfomeONomeParaRemoverFuncionario = new javax.swing.JLabel();
+        tfRecebeNomeParaRemoverFuncionarioo = new javax.swing.JTextField();
+        bRemover = new javax.swing.JButton();
+        bVoltarMenuPrincipal = new javax.swing.JButton();
+        pFinanceiro = new javax.swing.JPanel();
+        lFinanceiroDaONG = new javax.swing.JLabel();
+        lReceitaDaONG = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lTitulo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lTitulo.setText("MENU GESTOR");
+        lTituloCadastroDeFuncionarios.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lTituloCadastroDeFuncionarios.setText("Cadastro de Funcinários");
 
-        bCadastrarFuncionario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        bCadastrarFuncionario.setText("Cadastrar Funcionários");
-        bCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+        lNome.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lNome.setText("Nome: ");
+
+        tfRecebeNome.setText("jTextField1");
+
+        lIdade.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lIdade.setText("Idade: ");
+
+        tfRecebeIdade.setText("jTextField2");
+
+        lEndereco.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lEndereco.setText("Endereço: ");
+
+        tfRecebeEndereco.setText("jTextField3");
+
+        lSalario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lSalario.setText("Salário: ");
+
+        tfRecebeSalario.setText("jTextField5");
+
+        taListaFuncionarios.setColumns(20);
+        taListaFuncionarios.setRows(5);
+        jScrollPane1.setViewportView(taListaFuncionarios);
+
+        bBotaoSalvarFuncionario.setText("Salvar");
+        bBotaoSalvarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCadastrarFuncionarioActionPerformed(evt);
+                bBotaoSalvarFuncionarioActionPerformed(evt);
             }
         });
 
-        bAnalisarReceitas.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        bAnalisarReceitas.setText(" Receitas");
-        bAnalisarReceitas.addActionListener(new java.awt.event.ActionListener() {
+        lInfomeONomeParaRemoverFuncionario.setText("Informe o nome para remover Funcionário: ");
+
+        tfRecebeNomeParaRemoverFuncionarioo.setText("jTextField6");
+
+        bRemover.setText("Remover");
+        bRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAnalisarReceitasActionPerformed(evt);
+                bRemoverActionPerformed(evt);
             }
         });
 
-        bAnalisarDespesas.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        bAnalisarDespesas.setText("Despesas");
+        bVoltarMenuPrincipal.setText("Voltar Menu Principal");
+        bVoltarMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVoltarMenuPrincipalActionPerformed(evt);
+            }
+        });
 
-        bGerarRelatorioFinanceiro.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        bGerarRelatorioFinanceiro.setText("Relatório Financeiro");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(lTitulo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bAnalisarReceitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bCadastrarFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bAnalisarDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bGerarRelatorioFinanceiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(117, Short.MAX_VALUE))
+        javax.swing.GroupLayout pCadastroDeFuncionariosLayout = new javax.swing.GroupLayout(pCadastroDeFuncionarios);
+        pCadastroDeFuncionarios.setLayout(pCadastroDeFuncionariosLayout);
+        pCadastroDeFuncionariosLayout.setHorizontalGroup(
+            pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastroDeFuncionariosLayout.createSequentialGroup()
+                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pCadastroDeFuncionariosLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pCadastroDeFuncionariosLayout.createSequentialGroup()
+                                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lTituloCadastroDeFuncionarios)
+                                    .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(pCadastroDeFuncionariosLayout.createSequentialGroup()
+                                            .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(lIdade)
+                                                    .addComponent(lNome))
+                                                .addComponent(lEndereco)
+                                                .addComponent(lSalario))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(tfRecebeNome, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                                .addComponent(tfRecebeIdade)
+                                                .addComponent(tfRecebeEndereco)
+                                                .addComponent(tfRecebeSalario)))))
+                                .addGap(0, 178, Short.MAX_VALUE))
+                            .addGroup(pCadastroDeFuncionariosLayout.createSequentialGroup()
+                                .addComponent(lInfomeONomeParaRemoverFuncionario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfRecebeNomeParaRemoverFuncionarioo, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))))
+                    .addGroup(pCadastroDeFuncionariosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bVoltarMenuPrincipal)
+                            .addComponent(bBotaoSalvarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bRemover))))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lTitulo)
-                .addGap(37, 37, 37)
-                .addComponent(bCadastrarFuncionario)
-                .addGap(34, 34, 34)
-                .addComponent(bAnalisarReceitas)
-                .addGap(31, 31, 31)
-                .addComponent(bAnalisarDespesas)
-                .addGap(36, 36, 36)
-                .addComponent(bGerarRelatorioFinanceiro)
-                .addGap(0, 44, Short.MAX_VALUE))
+        pCadastroDeFuncionariosLayout.setVerticalGroup(
+            pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pCadastroDeFuncionariosLayout.createSequentialGroup()
+                .addComponent(lTituloCadastroDeFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lNome)
+                    .addComponent(tfRecebeNome, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lIdade)
+                    .addComponent(tfRecebeIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lEndereco)
+                    .addComponent(tfRecebeEndereco))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lSalario)
+                    .addComponent(tfRecebeSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(bBotaoSalvarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addGroup(pCadastroDeFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfRecebeNomeParaRemoverFuncionarioo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lInfomeONomeParaRemoverFuncionario))
+                .addGap(18, 18, 18)
+                .addComponent(bRemover)
+                .addGap(18, 18, 18)
+                .addComponent(bVoltarMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        tpAbas.addTab("Cadastro e Remoção de Funcionários", pCadastroDeFuncionarios);
+
+        lFinanceiroDaONG.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lFinanceiroDaONG.setText("Financeiro da ONG");
+
+        lReceitaDaONG.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lReceitaDaONG.setText("Receita Da ONG: ");
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel1.setText("Despesas Da ONG:");
+
+        jButton1.setText("Gerar Relatório ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pFinanceiroLayout = new javax.swing.GroupLayout(pFinanceiro);
+        pFinanceiro.setLayout(pFinanceiroLayout);
+        pFinanceiroLayout.setHorizontalGroup(
+            pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pFinanceiroLayout.createSequentialGroup()
+                .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pFinanceiroLayout.createSequentialGroup()
+                            .addGap(200, 200, 200)
+                            .addComponent(lFinanceiroDaONG))
+                        .addGroup(pFinanceiroLayout.createSequentialGroup()
+                            .addGap(30, 30, 30)
+                            .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lReceitaDaONG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)))))
+                .addContainerGap(236, Short.MAX_VALUE))
+        );
+        pFinanceiroLayout.setVerticalGroup(
+            pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pFinanceiroLayout.createSequentialGroup()
+                .addComponent(lFinanceiroDaONG)
+                .addGap(18, 18, 18)
+                .addComponent(lReceitaDaONG, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel1)
+                .addGap(118, 118, 118)
+                .addComponent(jButton1)
+                .addGap(0, 242, Short.MAX_VALUE))
+        );
+
+        tpAbas.addTab("Financeiro", pFinanceiro);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tpAbas)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tpAbas)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarFuncionarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bCadastrarFuncionarioActionPerformed
+    private void bBotaoSalvarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBotaoSalvarFuncionarioActionPerformed
+        Funcionario funcionario;
+        MenuFuncionario menu;
+	String nome = tfRecebeNome.getText();
+	String idade = tfRecebeIdade.getText();
+	String endereco = tfRecebeEndereco.getText();
+        String salario = tfRecebeSalario.getText();
+        int recebeIdade = Integer.parseInt(idade);
+        double recebeSalario = Double.parseDouble(salario);
+        funcionario = new Funcionario(recebeSalario, nome, recebeIdade, endereco);
+        menu = new MenuFuncionario(listaFuncionario);
+        listaFuncionario.add(funcionario);
+        limpaCampos();
+        taListaFuncionarios.setText(listaFuncionario.toString().replace("[", "").replace("]", ""));
+        
+    }//GEN-LAST:event_bBotaoSalvarFuncionarioActionPerformed
 
-    private void bAnalisarReceitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnalisarReceitasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bAnalisarReceitasActionPerformed
+    private void bRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverActionPerformed
+        String recebeNome = tfRecebeNomeParaRemoverFuncionarioo.getText();   
+        for (int i=0; i< listaFuncionario.size();i++){
+               Funcionario indiceNaLista = listaFuncionario.get(i);
+               if (indiceNaLista.getNome().equals(recebeNome)){
+                   listaFuncionario.remove(indiceNaLista);
+               }
+           }
+         MenuFuncionario menu = new MenuFuncionario(listaFuncionario);
+         taListaFuncionarios.setText(listaFuncionario.toString().replace("[", "").replace("]", ""));
+    }//GEN-LAST:event_bRemoverActionPerformed
+
+    private void bVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoltarMenuPrincipalActionPerformed
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bVoltarMenuPrincipalActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,11 +339,40 @@ public class MenuGestor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAnalisarDespesas;
-    private javax.swing.JButton bAnalisarReceitas;
-    private javax.swing.JButton bCadastrarFuncionario;
-    private javax.swing.JButton bGerarRelatorioFinanceiro;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lTitulo;
+    private javax.swing.JButton bBotaoSalvarFuncionario;
+    private javax.swing.JButton bRemover;
+    private javax.swing.JButton bVoltarMenuPrincipal;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lEndereco;
+    private javax.swing.JLabel lFinanceiroDaONG;
+    private javax.swing.JLabel lIdade;
+    private javax.swing.JLabel lInfomeONomeParaRemoverFuncionario;
+    private javax.swing.JLabel lNome;
+    private javax.swing.JLabel lReceitaDaONG;
+    private javax.swing.JLabel lSalario;
+    private javax.swing.JLabel lTituloCadastroDeFuncionarios;
+    private javax.swing.JPanel pCadastroDeFuncionarios;
+    private javax.swing.JPanel pFinanceiro;
+    private javax.swing.JTextArea taListaFuncionarios;
+    private javax.swing.JTextField tfRecebeEndereco;
+    private javax.swing.JTextField tfRecebeIdade;
+    private javax.swing.JTextField tfRecebeNome;
+    private javax.swing.JTextField tfRecebeNomeParaRemoverFuncionarioo;
+    private javax.swing.JTextField tfRecebeSalario;
+    private javax.swing.JTabbedPane tpAbas;
     // End of variables declaration//GEN-END:variables
+
+    public void limpaCampos (){
+        tfRecebeEndereco.setText(null);
+        tfRecebeIdade.setText(null);
+        tfRecebeNome.setText(null);
+        tfRecebeNomeParaRemoverFuncionarioo.setText(null);
+        tfRecebeSalario.setText(null);
+    } 
+
+    
+    
 }

@@ -1,23 +1,39 @@
 package funcionario;
 
+import gerais.CadastroGeral;
 import java.util.List;
 
 import gerais.UsuarioLongarNoSistema;
+import java.util.ArrayList;
 import voluntario.Doacao;
 
-public class Funcionario {
+public class Funcionario extends CadastroGeral{
+        private double salario;
+        
 
-	UsuarioLongarNoSistema usuario;
-	Doacao doacao;
-	List<Doacao> listDoacao;
+    public Funcionario(double salario, String nome, int idade, String endereco) {
+        super(nome, idade, endereco);
+        this.salario = salario;
+    }
 
-	public String aceitarDoacao(int decisao) {
-		listDoacao.remove(decisao);
-		return "REMOVIDO COM SUCESSO";
-	}
-	
-	
-	
-	
-	
+    public Funcionario() {
+    }
+    
+    
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    @Override
+    public String toString() {
+        return " Nome: "+getNome()+" ,Salário: "+getSalario()+" ,Endereço: "+getEndereco()+" ,Idade: "+getIdade();
+    }	
+    
+    
+    
 }

@@ -28,6 +28,6 @@ public class CadastroTrabalho {
 
     @Override
     public String toString() {
-        return "CadastroTrabalho{" + "tipoDeTrabalho=" + tipoDeTrabalho + ", quantidadeVagas=" + quantidadeVagas + '}';
+        return "Tipo De Trabalho: " + tipoDeTrabalho + ", Quantidade Vagas: " + quantidadeVagas;
     }
 }

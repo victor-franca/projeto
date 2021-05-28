@@ -2,29 +2,22 @@ package gerais;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CadastroGeral {
-        private int codigo;
+        
 	private String nome;
 	private int idade ;
 	private String endereco;
 
-    public CadastroGeral(int codigo, String nome, int idade, String endereco) {
-        this.codigo = codigo;
+    public CadastroGeral( String nome, int idade, String endereco) {
+        
         this.nome = nome;
         this.idade = idade;
         this.endereco = endereco;
     }
 
     public CadastroGeral() {
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -53,9 +46,8 @@ public class CadastroGeral {
 
     @Override
     public String toString() {
-        return "CadastroGeral" + "codigo=" + codigo + ", nome=" + nome + ", idade=" + idade + ", endereco=" + endereco;
+        return "CadastroGeral: "+", nome=" + nome + ", idade=" + idade + ", endereco=" + endereco;
     }
 
     
-       
 }
