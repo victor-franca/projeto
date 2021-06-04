@@ -9,12 +9,13 @@ public class Doacao {
 	private String formaDeEntregaDaDoacao;
 	private String repeticaoDaDoacao;
 	private double valor;
-        
+        private int codigo;
 	
         private CadastroVoluntarioCPF voluntarioCPF;
         private CadastroVoluntarioCNPJ voluntarioCNPJ;
 
-    public Doacao(String dataEntrega, String formaDeEntregaDaDoacao, String repeticaoDaDoacao, double valor, CadastroVoluntarioCPF voluntarioCPF) {
+    public Doacao(int codigo,String dataEntrega, String formaDeEntregaDaDoacao, String repeticaoDaDoacao, double valor, CadastroVoluntarioCPF voluntarioCPF) {
+        this.codigo = codigo;
         this.dataEntrega = dataEntrega;
         this.formaDeEntregaDaDoacao = formaDeEntregaDaDoacao;
         this.repeticaoDaDoacao = repeticaoDaDoacao;
@@ -22,7 +23,8 @@ public class Doacao {
         this.voluntarioCPF = voluntarioCPF;
     }
 
-    public Doacao(String dataEntrega, String formaDeEntregaDaDoacao, String repeticaoDaDoacao, double valor, CadastroVoluntarioCNPJ voluntarioCNPJ) {
+    public Doacao(int codigo,String dataEntrega, String formaDeEntregaDaDoacao, String repeticaoDaDoacao, double valor, CadastroVoluntarioCNPJ voluntarioCNPJ) {
+        this.codigo = codigo;
         this.dataEntrega = dataEntrega;
         this.formaDeEntregaDaDoacao = formaDeEntregaDaDoacao;
         this.repeticaoDaDoacao = repeticaoDaDoacao;
@@ -82,17 +84,18 @@ public class Doacao {
         this.voluntarioCNPJ = voluntarioCNPJ;
     }
 
-    @Override
-    public String toString() {
-        return "Doacao{" + "dataEntrega=" + dataEntrega + ", formaDeEntregaDaDoacao=" + formaDeEntregaDaDoacao + ", repeticaoDaDoacao=" + repeticaoDaDoacao + ", valor=" + valor;
+    public int getCodigo() {
+        return codigo;
     }
 
-        
-
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
     
-	
-	
-        
-        
-        
+    
+
+    @Override
+    public String toString() {
+        return "\nDoacao: "+" Código: "+codigo + " ,Data Entrega: " + dataEntrega + ", Forma De Entrega Da Doacao " + formaDeEntregaDaDoacao + ", Repeticao Da Doacao=" + repeticaoDaDoacao + ", Valor" + valor+"\n"+"Voluntario: "+voluntarioCPF+"\n"+"Voluntario"+voluntarioCNPJ;
+    }      
 }

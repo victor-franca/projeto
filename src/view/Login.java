@@ -5,18 +5,15 @@
  */
 package view;
 
-import funcionario.CadastroEventos;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import gerais.CadastroGeral;
 import gerais.UsuarioLongarNoSistema;
-import java.util.ArrayList;
-import java.util.Locale;
-import javax.crypto.AEADBadTagException;
-import javax.swing.JButton;
-import javax.swing.JDesktopPane;
-import javax.swing.JDialog;
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import static view.MenuFuncionario.listaCadastroEventos;
+import voluntario.CadastroVoluntarioCNPJ;
+import voluntario.CadastroVoluntarioCPF;
 
 /**
  *
@@ -28,18 +25,21 @@ public class Login extends javax.swing.JFrame {
      * Creates new form MenuGestor
      */
     static String tipoDeMenu;
-    public static ArrayList <CadastroGeral> listaVoluntarios = new ArrayList <> (); 
+    public static ArrayList <CadastroVoluntarioCPF> listaVoluntariosCPF = new ArrayList <> ();
+    public static List <CadastroVoluntarioCNPJ> listaVoluntarioCNPJ = new ArrayList <> ();
     public Login(String tipoDeMenu) {
         initComponents();
-        tfRecebeUsuario.setText(null);
-        tfRecebeSenha.setText(null);
+        limpaCampos();
         this.tipoDeMenu = tipoDeMenu;
     }
     
-    public Login(ArrayList <CadastroGeral> listaVoluntarios){
-        this.listaVoluntarios = listaVoluntarios ;
+    public Login(ArrayList <CadastroVoluntarioCPF> listaVoluntarios){
+        this.listaVoluntariosCPF = listaVoluntarios ;
     }
-
+    
+    public Login (List <CadastroVoluntarioCNPJ> listaVoluntariosCPNJ){
+        this.listaVoluntarioCNPJ = listaVoluntariosCPNJ;
+    }
     public Login() {
     }
     /**
@@ -59,6 +59,7 @@ public class Login extends javax.swing.JFrame {
         tfRecebeUsuario = new javax.swing.JTextField();
         tfRecebeSenha = new javax.swing.JTextField();
         bLogin = new javax.swing.JButton();
+        bVoltarMenuPrincipal = new javax.swing.JButton();
 
         javax.swing.GroupLayout dDialogoLayout = new javax.swing.GroupLayout(dDialogo.getContentPane());
         dDialogo.getContentPane().setLayout(dDialogoLayout);
@@ -94,6 +95,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        bVoltarMenuPrincipal.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        bVoltarMenuPrincipal.setText("Voltar Menu Principal");
+        bVoltarMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVoltarMenuPrincipalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,14 +118,16 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(lSenha)
                             .addComponent(lUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfRecebeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(tfRecebeSenha))))
-                .addContainerGap(110, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bVoltarMenuPrincipal)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfRecebeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                .addComponent(tfRecebeSenha)))))
+                .addContainerGap(103, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(bLogin)
-                .addGap(154, 154, 154))
+                .addGap(152, 152, 152))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +141,11 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lSenha)
                     .addComponent(tfRecebeSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(bLogin)
-                .addGap(0, 78, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(bVoltarMenuPrincipal)
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,30 +173,48 @@ public class Login extends javax.swing.JFrame {
         String nome = tfRecebeUsuario.getText();
         String senha = tfRecebeSenha.getText();
         usuario = new UsuarioLongarNoSistema(nome, senha);
-        msgDeLoginNoSistema(usuario.toString());
+        
         if(usuarioGestor.equals(tipoDeMenu)){
+           msgDeLoginNoSistema(usuario.toString());
            MenuGestor mg = new MenuGestor();
            mg.setVisible(true);
            dispose(); 
        }
         else if (usuarioFuncionario.equals(tipoDeMenu)){
+            msgDeLoginNoSistema(usuario.toString());
             MenuFuncionario mf = new MenuFuncionario();
             mf.setVisible(true);
             dispose();
         }
-        for (int i=0; i< listaVoluntarios.size();i++){
-               CadastroGeral indiceNaLista = listaVoluntarios.get(i);
-               if (indiceNaLista.getNome().equals(nome) && usuarioVoluntario.equals(tipoDeMenu) ){
-                   MenuVoluntario mv = new MenuVoluntario(indiceNaLista);
+        for (int i=0; i< listaVoluntariosCPF.size();i++){
+               CadastroVoluntarioCPF indiceNaListaCPF = listaVoluntariosCPF.get(i);
+               int numeroCPF = indiceNaListaCPF.getCpf().length();
+               if (indiceNaListaCPF.getNome().equals(nome) && usuarioVoluntario.equals(tipoDeMenu) && numeroCPF == 11){
+                   msgDeLoginNoSistema(usuario.toString());
+                   MenuVoluntario mv = new MenuVoluntario(indiceNaListaCPF);
                    mv.setVisible(true);
                    dispose();
                }
-           }
-        /*else if (usuarioVoluntario.equals(tipoDeMenu) && listaVoluntarios.contains(cg)) {
-         MenuVoluntario mv = new MenuVoluntario();
-         mv.setVisible(true);
-         dispose();*/
+        }
+        for (int i=0; i < listaVoluntarioCNPJ.size();i++){
+            CadastroVoluntarioCNPJ indiceCNPJ = listaVoluntarioCNPJ.get(i);
+            int numeroCNPJ = indiceCNPJ.getCnpj().length();
+            if(indiceCNPJ.getNome().equals(nome) && usuarioVoluntario.equals(tipoDeMenu) && numeroCNPJ == 14) {
+            msgDeLoginNoSistema(usuario.toString());
+            MenuVoluntario mv = new MenuVoluntario(indiceCNPJ);
+            mv.setVisible(true);
+            dispose(); 
+                   }
+               }
+           
+          
     }//GEN-LAST:event_bLoginActionPerformed
+
+    private void bVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoltarMenuPrincipalActionPerformed
+        Menu  menu = new Menu();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bVoltarMenuPrincipalActionPerformed
     
     /**
      * @param args the command line arguments
@@ -225,6 +256,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bLogin;
+    private javax.swing.JButton bVoltarMenuPrincipal;
     private javax.swing.JDialog dDialogo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lLogin;
@@ -238,4 +270,9 @@ public class Login extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(rootPane, msg);
   }
  
+  public void limpaCampos (){
+      tfRecebeUsuario.setText(null);
+       tfRecebeSenha.setText(null);
+  }
+  
 }

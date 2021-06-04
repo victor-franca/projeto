@@ -5,49 +5,67 @@
  */
 package view;
 
-import funcionario.CadastroEventos;
-import gerais.CadastroGeral;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import static view.Login.listaVoluntarios;
-import static view.Login.tipoDeMenu;
+
+import funcionario.CadastroEventos;
+import funcionario.RespostaDaDoacao;
+import voluntario.CadastroVoluntarioCNPJ;
+import voluntario.CadastroVoluntarioCPF;
+import voluntario.Doacao;
 
 
-
-/**
- *
- * @author Victor
- */
 public class MenuVoluntario extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuVoluntario
      */
     public static ArrayList <CadastroEventos> listaCadastroEventos = new ArrayList<>();
-    public static ArrayList <CadastroGeral> listaVoluntarios = new ArrayList<>();
-    public static CadastroGeral cg = new CadastroGeral();
-    public MenuVoluntario(CadastroGeral cg) {
+     CadastroVoluntarioCPF cvCPF = new CadastroVoluntarioCPF ();
+     CadastroVoluntarioCNPJ cvCNPJ = new CadastroVoluntarioCNPJ();
+    public static ArrayList <Doacao> listaDoacao = new ArrayList<>();
+    public static List <RespostaDaDoacao> listaRespostaDoacao = new ArrayList<>();
+    public static CadastroEventos ce = new CadastroEventos();
+    public MenuVoluntario() {
         initComponents();
         limparCampos ();
-        this.cg= cg;
-        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
+        setMascara();
+        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", "")); 
+        exibir ();
         
     }
-    
     public MenuVoluntario (ArrayList <CadastroEventos> listaCadastroEventos ){
         initComponents();
         limparCampos ();
+        setMascara();
         this.listaCadastroEventos = listaCadastroEventos;
-        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
+        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", "")); 
+        exibir();
         
     }
-    
-    public MenuVoluntario() {
-        
+    public MenuVoluntario(CadastroVoluntarioCPF cvCPF) {  
+        initComponents();
+        limparCampos ();
+        setMascara();
+        this.cvCPF = cvCPF;
+        exibir();
         
     }   
-    
+    public MenuVoluntario (CadastroVoluntarioCNPJ cvCNPJ){
+        initComponents();
+        limparCampos ();
+        setMascara();
+        this.cvCNPJ = cvCNPJ;
+        exibir();
+    }
+    public MenuVoluntario (List <RespostaDaDoacao>listaRespostaDoacao ){
+        initComponents();
+        this.listaRespostaDoacao = listaRespostaDoacao;
+        exibir();
+    }
      /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,11 +84,10 @@ public class MenuVoluntario extends javax.swing.JFrame {
         lDaraParaSeAssociarAoTrabalhoDisponivel = new javax.swing.JLabel();
         bAsssociarAEvento = new javax.swing.JButton();
         bMenuPrincipal = new javax.swing.JButton();
-        ftfRecebeData = new javax.swing.JFormattedTextField();
+        tfRecebeCodigoEvento = new javax.swing.JTextField();
         pDoacao = new javax.swing.JPanel();
         lTituloDoacao = new javax.swing.JLabel();
         lDataDaEntrega = new javax.swing.JLabel();
-        tfRecebeDataDaEntrega = new javax.swing.JTextField();
         lFormaDeEntregaDeDoacao = new javax.swing.JLabel();
         cbRecebeFormaDeEntrega = new javax.swing.JComboBox<>();
         lDoacaoUnica = new javax.swing.JLabel();
@@ -78,14 +95,12 @@ public class MenuVoluntario extends javax.swing.JFrame {
         lValor = new javax.swing.JLabel();
         tfRecebeValor = new javax.swing.JTextField();
         bEnviaDoacaoParaAnalise = new javax.swing.JButton();
+        ftfRecebeDataDeEntrega = new javax.swing.JFormattedTextField();
         pPerfil = new javax.swing.JPanel();
         lPerfil = new javax.swing.JLabel();
         lRespostaReferenteADoacao = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taListaRespostaReferenteADoacao = new javax.swing.JTextArea();
-        lEventosQueEstaAssociado = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        taListaEventosQueVocêEstaAssociado = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,7 +111,7 @@ public class MenuVoluntario extends javax.swing.JFrame {
         taListaEventos.setRows(5);
         jScrollPane1.setViewportView(taListaEventos);
 
-        lDaraParaSeAssociarAoTrabalhoDisponivel.setText("Digite a Data Para se Associar ao Trabalho Disponivel no Evento: ");
+        lDaraParaSeAssociarAoTrabalhoDisponivel.setText("Digite o Código Para se Associar ao Trabalho Disponivel no Evento: ");
 
         bAsssociarAEvento.setText("Associar a Evento");
         bAsssociarAEvento.addActionListener(new java.awt.event.ActionListener() {
@@ -112,12 +127,7 @@ public class MenuVoluntario extends javax.swing.JFrame {
             }
         });
 
-        ftfRecebeData.setText("jFormattedTextField1");
-        ftfRecebeData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ftfRecebeDataActionPerformed(evt);
-            }
-        });
+        tfRecebeCodigoEvento.setText("jTextField1");
 
         javax.swing.GroupLayout pEventosNaONGLayout = new javax.swing.GroupLayout(pEventosNaONG);
         pEventosNaONG.setLayout(pEventosNaONGLayout);
@@ -138,9 +148,9 @@ public class MenuVoluntario extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addGroup(pEventosNaONGLayout.createSequentialGroup()
                                 .addComponent(lDaraParaSeAssociarAoTrabalhoDisponivel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ftfRecebeData, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 62, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(tfRecebeCodigoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 52, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEventosNaONGLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(bAsssociarAEvento)))))
@@ -155,7 +165,7 @@ public class MenuVoluntario extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(pEventosNaONGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lDaraParaSeAssociarAoTrabalhoDisponivel)
-                    .addComponent(ftfRecebeData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfRecebeCodigoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(bAsssociarAEvento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
@@ -171,12 +181,10 @@ public class MenuVoluntario extends javax.swing.JFrame {
         lDataDaEntrega.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lDataDaEntrega.setText("Data Da Entrega:");
 
-        tfRecebeDataDaEntrega.setText("jTextField1");
-
         lFormaDeEntregaDeDoacao.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lFormaDeEntregaDeDoacao.setText("Forma De Entrega de Doação:");
 
-        cbRecebeFormaDeEntrega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrega Presencial", " ", "PIX" }));
+        cbRecebeFormaDeEntrega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrega Presencial", "Entrega Na ONG" }));
         cbRecebeFormaDeEntrega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbRecebeFormaDeEntregaActionPerformed(evt);
@@ -200,6 +208,8 @@ public class MenuVoluntario extends javax.swing.JFrame {
             }
         });
 
+        ftfRecebeDataDeEntrega.setText("jFormattedTextField1");
+
         javax.swing.GroupLayout pDoacaoLayout = new javax.swing.GroupLayout(pDoacao);
         pDoacao.setLayout(pDoacaoLayout);
         pDoacaoLayout.setHorizontalGroup(
@@ -218,10 +228,10 @@ public class MenuVoluntario extends javax.swing.JFrame {
                                     .addComponent(lValor))
                                 .addGap(18, 18, 18)
                                 .addGroup(pDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfRecebeDataDaEntrega)
                                     .addComponent(cbRecebeFormaDeEntrega, 0, 237, Short.MAX_VALUE)
                                     .addComponent(cbRecebeRespostaDeDoacaoUnica, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfRecebeValor)))))
+                                    .addComponent(tfRecebeValor)
+                                    .addComponent(ftfRecebeDataDeEntrega)))))
                     .addGroup(pDoacaoLayout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(lTituloDoacao)))
@@ -232,9 +242,9 @@ public class MenuVoluntario extends javax.swing.JFrame {
             .addGroup(pDoacaoLayout.createSequentialGroup()
                 .addComponent(lTituloDoacao)
                 .addGap(18, 18, 18)
-                .addGroup(pDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lDataDaEntrega)
-                    .addComponent(tfRecebeDataDaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftfRecebeDataDeEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pDoacaoLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
@@ -267,13 +277,6 @@ public class MenuVoluntario extends javax.swing.JFrame {
         taListaRespostaReferenteADoacao.setRows(5);
         jScrollPane2.setViewportView(taListaRespostaReferenteADoacao);
 
-        lEventosQueEstaAssociado.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lEventosQueEstaAssociado.setText("Eventos que você esta Associado:");
-
-        taListaEventosQueVocêEstaAssociado.setColumns(20);
-        taListaEventosQueVocêEstaAssociado.setRows(5);
-        jScrollPane3.setViewportView(taListaEventosQueVocêEstaAssociado);
-
         javax.swing.GroupLayout pPerfilLayout = new javax.swing.GroupLayout(pPerfil);
         pPerfil.setLayout(pPerfilLayout);
         pPerfilLayout.setHorizontalGroup(
@@ -285,15 +288,9 @@ public class MenuVoluntario extends javax.swing.JFrame {
                         .addComponent(lPerfil))
                     .addGroup(pPerfilLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(pPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pPerfilLayout.createSequentialGroup()
-                                .addComponent(lEventosQueEstaAssociado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pPerfilLayout.createSequentialGroup()
-                                .addComponent(lRespostaReferenteADoacao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(lRespostaReferenteADoacao)
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         pPerfilLayout.setVerticalGroup(
@@ -304,11 +301,7 @@ public class MenuVoluntario extends javax.swing.JFrame {
                 .addGroup(pPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lRespostaReferenteADoacao)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(pPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lEventosQueEstaAssociado)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 106, Short.MAX_VALUE))
+                .addGap(0, 240, Short.MAX_VALUE))
         );
 
         tpAbas.addTab("Perfil", pPerfil);
@@ -317,7 +310,7 @@ public class MenuVoluntario extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tpAbas, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(tpAbas)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,37 +332,61 @@ public class MenuVoluntario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-    private void bAsssociarAEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAsssociarAEventoActionPerformed
-
-        for (int i=0; i< listaCadastroEventos.size();i++){
-               CadastroEventos indiceNaLista = listaCadastroEventos.get(i);
-               if (indiceNaLista.getDadaDoEvento().equals(ftfRecebeData.getText())){
-                  JOptionPane.showMessageDialog(null,indiceNaLista.cadastroEVerificacaoDeQuantidadeDeVagas(cg));
-               }
-           }
-        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
-    }//GEN-LAST:event_bAsssociarAEventoActionPerformed
-
-    private void cbRecebeFormaDeEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRecebeFormaDeEntregaActionPerformed
-        
-    }//GEN-LAST:event_cbRecebeFormaDeEntregaActionPerformed
 
     private void bEnviaDoacaoParaAnaliseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEnviaDoacaoParaAnaliseActionPerformed
+
+        String data = ftfRecebeDataDeEntrega.getText();
+        String formaDeEntrega = cbRecebeFormaDeEntrega.getSelectedItem().toString();
+        String doacaoUnica = cbRecebeRespostaDeDoacaoUnica.getSelectedItem().toString();
+        String doacaoValorString = tfRecebeValor.getText();
+        double doacaoValor = Double.parseDouble(doacaoValorString);
+
         
+        
+        if (this.cvCPF!=null){
+            Doacao doacao = new Doacao(listaDoacao.size(),data, formaDeEntrega, doacaoUnica, doacaoValor, cvCPF);
+            listaDoacao.add(doacao);
+            MenuFuncionario menu = new MenuFuncionario(listaDoacao);
+                
+            }
+        else if (this.cvCNPJ!=null){
+            Doacao doacao = new Doacao(listaDoacao.size(),data, formaDeEntrega, doacaoUnica, doacaoValor, cvCNPJ);
+            listaDoacao.add(doacao);
+            MenuFuncionario menu = new MenuFuncionario(listaDoacao);
+                
+            }
+         else {
+            JOptionPane.showMessageDialog(null,"Não foi possivel completa sua doação");
+            }
+        
+        limparCampos();
     }//GEN-LAST:event_bEnviaDoacaoParaAnaliseActionPerformed
 
+    private void cbRecebeFormaDeEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRecebeFormaDeEntregaActionPerformed
+
+    }//GEN-LAST:event_cbRecebeFormaDeEntregaActionPerformed
+
     private void bMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMenuPrincipalActionPerformed
-       Menu menu = new Menu();
-       menu.setVisible(true);
-       dispose();
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        dispose();
     }//GEN-LAST:event_bMenuPrincipalActionPerformed
 
-    private void ftfRecebeDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftfRecebeDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ftfRecebeDataActionPerformed
-
+    private void bAsssociarAEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAsssociarAEventoActionPerformed
+        int codigoEvento = Integer.parseInt(tfRecebeCodigoEvento.getText());
+        for (int i=0; i< listaCadastroEventos.size();i++){
+            CadastroEventos indiceNaLista = listaCadastroEventos.get(i);
+            if (indiceNaLista.getCodigoEvento() == codigoEvento && cvCPF != null){
+                JOptionPane.showMessageDialog(null,indiceNaLista.cadastroEVerificacaoDeQuantidadeDeVagas(cvCPF.getNome()));
+            }
+            else {
+                JOptionPane.showMessageDialog(null,indiceNaLista.cadastroEVerificacaoDeQuantidadeDeVagas(cvCNPJ.getNome()));
+            }
+        }
+        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
+    }//GEN-LAST:event_bAsssociarAEventoActionPerformed
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -400,7 +417,7 @@ public class MenuVoluntario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuVoluntario(cg).setVisible(true);
+                new MenuVoluntario().setVisible(true);
             }
         });
     }
@@ -411,15 +428,13 @@ public class MenuVoluntario extends javax.swing.JFrame {
     private javax.swing.JButton bMenuPrincipal;
     private javax.swing.JComboBox<String> cbRecebeFormaDeEntrega;
     private javax.swing.JComboBox<String> cbRecebeRespostaDeDoacaoUnica;
-    private javax.swing.JFormattedTextField ftfRecebeData;
+    private javax.swing.JFormattedTextField ftfRecebeDataDeEntrega;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lDaraParaSeAssociarAoTrabalhoDisponivel;
     private javax.swing.JLabel lDataDaEntrega;
     private javax.swing.JLabel lDoacaoUnica;
-    private javax.swing.JLabel lEventosQueEstaAssociado;
     private javax.swing.JLabel lFormaDeEntregaDeDoacao;
     private javax.swing.JLabel lPerfil;
     private javax.swing.JLabel lRespostaReferenteADoacao;
@@ -430,25 +445,29 @@ public class MenuVoluntario extends javax.swing.JFrame {
     private javax.swing.JPanel pEventosNaONG;
     private javax.swing.JPanel pPerfil;
     private javax.swing.JTextArea taListaEventos;
-    private javax.swing.JTextArea taListaEventosQueVocêEstaAssociado;
     private javax.swing.JTextArea taListaRespostaReferenteADoacao;
-    private javax.swing.JTextField tfRecebeDataDaEntrega;
+    private javax.swing.JTextField tfRecebeCodigoEvento;
     private javax.swing.JTextField tfRecebeValor;
     private javax.swing.JTabbedPane tpAbas;
     // End of variables declaration//GEN-END:variables
     
     public void limparCampos (){
-        tfRecebeDataDaEntrega.setText(null);
+        ftfRecebeDataDeEntrega.setText(null);
         tfRecebeValor.setText(null);
-        ftfRecebeData.setText(null);
+        tfRecebeCodigoEvento.setText(null);
+        tfRecebeValor.setText(null);
     }
     
-    public void setMascara(){
+     public void setMascara(){
     try{
         MaskFormatter mask = new MaskFormatter("##/##/####");
-        mask.install(ftfRecebeData);
+        mask.install(ftfRecebeDataDeEntrega);
         }catch(java.text.ParseException ex){}
    
-    }
+}
+     public void exibir (){
+        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", "")); 
+        taListaRespostaReferenteADoacao.setText(listaRespostaDoacao.toString());
+     }
    
 }

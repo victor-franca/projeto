@@ -5,26 +5,24 @@
  */
 package view;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
+
 import funcionario.CadastroEventos;
 import funcionario.CadastroTrabalho;
 import funcionario.Funcionario;
-import gerais.CadastroGeral;
-import java.awt.ComponentOrientation;
-import java.awt.Label;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.MaskFormatter;
+import funcionario.RespostaDaDoacao;
 import voluntario.CadastroVoluntarioCNPJ;
 import voluntario.CadastroVoluntarioCPF;
+import voluntario.Doacao;
 
 /**
  *
@@ -36,26 +34,32 @@ public class MenuFuncionario extends javax.swing.JFrame {
      * Creates new form MenuVoluntario
      */
     
-    public static ArrayList <CadastroGeral> listaVoluntarios = new ArrayList <> ();
+    public static ArrayList <CadastroVoluntarioCPF> listaVoluntariosCPF = new ArrayList <> ();
+    public static List <CadastroVoluntarioCNPJ> listaVoluntariosCNPJ = new ArrayList <> ();
+    public static List <Doacao> listaDoacao = new ArrayList <> ();
     public static ArrayList <Funcionario> listaFuncionarios = new ArrayList <> ();
     public static ArrayList <CadastroEventos> listaCadastroEventos = new ArrayList<>();
-    SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+    public static ArrayList<RespostaDaDoacao> listaRespostaDaDoacao = new ArrayList<>();
+    int recebeIndiceInt;
     public MenuFuncionario() {
         initComponents();
         limparCampos();
         setMascara();
-        cbComboEscolhePeriodoDeTempoDisponivel.getSelectedObjects(); 
-        taListarVoluntarios.setText(listaVoluntarios.toString().replace("[", "").replace("]", ""));
-        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
+        exibir();
+        
     }
 
     public MenuFuncionario(ArrayList <Funcionario> listaFuncionarios ){
         initComponents();
         this.listaFuncionarios  = listaFuncionarios;
-        taListarVoluntarios.setText(listaVoluntarios.toString().replace("[", "").replace("]", ""));
-        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
+        exibir();
     }
     
+    public MenuFuncionario(List <Doacao> listaDoacao){
+        initComponents();
+        this.listaDoacao = listaDoacao;
+        exibir();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,14 +88,19 @@ public class MenuFuncionario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cbComboEscolhePeriodoDeTempoDisponivel = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        taLstarCNPJ = new javax.swing.JTextArea();
+        bImportarArquivo = new javax.swing.JButton();
         pAceitarDoacao = new javax.swing.JPanel();
         lDoacoes = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taListarDoacoes = new javax.swing.JTextArea();
         bRemoverDoacao = new javax.swing.JToggleButton();
-        lDoacaoNaoRemovidasSeramConsideradasComoAceitas = new javax.swing.JLabel();
         lInformeONumeroDaDoacaoQueDesejaRemover = new javax.swing.JLabel();
         tfRecebendoDoacaoParaRemover = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        bEnviarRespostaParaDoacao = new javax.swing.JButton();
+        cbRespostaDoacao = new javax.swing.JComboBox<>();
         pCadastroDeEventos = new javax.swing.JPanel();
         lTitulo = new javax.swing.JLabel();
         lValorGastoParaExecutarEvento = new javax.swing.JLabel();
@@ -109,13 +118,24 @@ public class MenuFuncionario extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         taListaEventos = new javax.swing.JTextArea();
         bRemoveEvento = new javax.swing.JButton();
-        tfRecebeDataDeEventoParaRemover = new javax.swing.JTextField();
-        lInformeADataParaRemoverEvento = new javax.swing.JLabel();
+        tfRecebeCodigoDoEventoParaRemover = new javax.swing.JTextField();
+        lInformeOCodigoParaRemoverEvento = new javax.swing.JLabel();
         ftfRecebeData = new javax.swing.JFormattedTextField();
         lInformeOTrabalhoNecessarioParaOsVoluntarios = new javax.swing.JLabel();
         tfRecebeTrabalhoParaVoluntarios = new javax.swing.JTextField();
         lVagas = new javax.swing.JLabel();
         tfRecebeVagas = new javax.swing.JTextField();
+        lCodigoDoEvento = new javax.swing.JLabel();
+        tfRecebeCodigoDoEvento = new javax.swing.JTextField();
+        pRelatorio = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lQuantidadeDeEventosCadastrados = new javax.swing.JLabel();
+        lsetQuantidadeDeEventos = new javax.swing.JLabel();
+        lQuandidadeDeVoluntarios = new javax.swing.JLabel();
+        lsetQuantidaDeVoluntarios = new javax.swing.JLabel();
+        bGerarRelatorio = new javax.swing.JButton();
+        lQuantidadeDeVoluntariosCNPJ = new javax.swing.JLabel();
+        lsetVoluntariosCNPJ = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,7 +171,7 @@ public class MenuFuncionario extends javax.swing.JFrame {
         taListarVoluntarios.setRows(5);
         spListarFuncionarios.setViewportView(taListarVoluntarios);
 
-        lInformeONumeroParaRemoveroVoluntario.setText("Informe o Numero Para Remover o Voluntário");
+        lInformeONumeroParaRemoveroVoluntario.setText("Informe o Nome Para Remover o Voluntário");
 
         tfRecebeNumeroParaRemoverVoluntario.setText("jTextField3");
         tfRecebeNumeroParaRemoverVoluntario.addActionListener(new java.awt.event.ActionListener() {
@@ -188,26 +208,21 @@ public class MenuFuncionario extends javax.swing.JFrame {
             }
         });
 
+        taLstarCNPJ.setColumns(20);
+        taLstarCNPJ.setRows(5);
+        jScrollPane3.setViewportView(taLstarCNPJ);
+
+        bImportarArquivo.setText("Importar Arquivo Externo");
+        bImportarArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bImportarArquivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pCadastrarNovoVoluntarioLayout = new javax.swing.GroupLayout(pCadastrarNovoVoluntario);
         pCadastrarNovoVoluntario.setLayout(pCadastrarNovoVoluntarioLayout);
         pCadastrarNovoVoluntarioLayout.setHorizontalGroup(
             pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastrarNovoVoluntarioLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
-                        .addComponent(spListarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(bSalvarVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastrarNovoVoluntarioLayout.createSequentialGroup()
-                        .addComponent(lInformeONumeroParaRemoveroVoluntario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfRecebeNumeroParaRemoverVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bRemoverVoluntario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(77, 77, 77))
             .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,6 +246,28 @@ public class MenuFuncionario extends javax.swing.JFrame {
                                         .addComponent(tfRecebeCPFCNPJ, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addComponent(cbComboEscolhePeriodoDeTempoDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lInformeONumeroParaRemoveroVoluntario)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfRecebeNumeroParaRemoverVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                        .addComponent(bRemoverVoluntario))
+                    .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3)
+                            .addComponent(spListarFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bImportarArquivo)
+                            .addComponent(bSalvarVoluntario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(24, 24, 24))
         );
         pCadastrarNovoVoluntarioLayout.setVerticalGroup(
             pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,22 +295,24 @@ public class MenuFuncionario extends javax.swing.JFrame {
                 .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lCPFCNPJ)
                     .addComponent(tfRecebeCPFCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(spListarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(bSalvarVoluntario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(spListarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pCadastrarNovoVoluntarioLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                        .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lInformeONumeroParaRemoveroVoluntario)
-                            .addComponent(tfRecebeNumeroParaRemoverVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bRemoverVoluntario))
-                        .addGap(110, 110, 110)))
+                        .addComponent(bImportarArquivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                        .addComponent(bSalvarVoluntario)))
+                .addGap(18, 18, 18)
+                .addGroup(pCadastrarNovoVoluntarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lInformeONumeroParaRemoveroVoluntario)
+                    .addComponent(tfRecebeNumeroParaRemoverVoluntario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bRemoverVoluntario))
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(22, 22, 22))
+                .addGap(35, 35, 35))
         );
 
         tpAbas.addTab("Cadastrar ou remover Voluntário", pCadastrarNovoVoluntario);
@@ -292,11 +331,20 @@ public class MenuFuncionario extends javax.swing.JFrame {
             }
         });
 
-        lDoacaoNaoRemovidasSeramConsideradasComoAceitas.setText("As doações que não forem removidas serão consideradas como aceitas  ");
-
-        lInformeONumeroDaDoacaoQueDesejaRemover.setText("Informe o Numero Da Doação que Deseja Remover");
+        lInformeONumeroDaDoacaoQueDesejaRemover.setText("Informe o Código Da Doação");
 
         tfRecebendoDoacaoParaRemover.setText("jTextField5");
+
+        jLabel2.setText("Informe a resposta para Doacao");
+
+        bEnviarRespostaParaDoacao.setText("Enviar Resposta");
+        bEnviarRespostaParaDoacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEnviarRespostaParaDoacaoActionPerformed(evt);
+            }
+        });
+
+        cbRespostaDoacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Não" }));
 
         javax.swing.GroupLayout pAceitarDoacaoLayout = new javax.swing.GroupLayout(pAceitarDoacao);
         pAceitarDoacao.setLayout(pAceitarDoacaoLayout);
@@ -304,9 +352,6 @@ public class MenuFuncionario extends javax.swing.JFrame {
             pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
                 .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAceitarDoacaoLayout.createSequentialGroup()
-                        .addGap(0, 221, Short.MAX_VALUE)
-                        .addComponent(lDoacaoNaoRemovidasSeramConsideradasComoAceitas))
                     .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1))
@@ -317,14 +362,20 @@ public class MenuFuncionario extends javax.swing.JFrame {
                                 .addComponent(lDoacoes))
                             .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(lInformeONumeroDaDoacaoQueDesejaRemover)
+                                .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lInformeONumeroDaDoacaoQueDesejaRemover)
+                                    .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfRecebendoDoacaoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfRecebendoDoacaoParaRemover, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addComponent(cbRespostaDoacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 239, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAceitarDoacaoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(bRemoverDoacao))
+            .addGroup(pAceitarDoacaoLayout.createSequentialGroup()
+                .addComponent(bRemoverDoacao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 374, Short.MAX_VALUE)
+                .addComponent(bEnviarRespostaParaDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         pAceitarDoacaoLayout.setVerticalGroup(
             pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,15 +383,19 @@ public class MenuFuncionario extends javax.swing.JFrame {
                 .addComponent(lDoacoes)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(lDoacaoNaoRemovidasSeramConsideradasComoAceitas)
-                .addGap(63, 63, 63)
+                .addGap(108, 108, 108)
                 .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lInformeONumeroDaDoacaoQueDesejaRemover)
                     .addComponent(tfRecebendoDoacaoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(bRemoverDoacao)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cbRespostaDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addGroup(pAceitarDoacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bRemoverDoacao)
+                    .addComponent(bEnviarRespostaParaDoacao))
+                .addGap(32, 32, 32))
         );
 
         tpAbas.addTab("Aceitar ou remover Doacão", pAceitarDoacao);
@@ -394,9 +449,9 @@ public class MenuFuncionario extends javax.swing.JFrame {
             }
         });
 
-        tfRecebeDataDeEventoParaRemover.setText("jTextField2");
+        tfRecebeCodigoDoEventoParaRemover.setText("jTextField2");
 
-        lInformeADataParaRemoverEvento.setText("Informe a Data do Evento Para Remover");
+        lInformeOCodigoParaRemoverEvento.setText("Informe Codigo do Evento Para Remover");
 
         ftfRecebeData.setText("jFormattedTextField1");
 
@@ -410,6 +465,11 @@ public class MenuFuncionario extends javax.swing.JFrame {
 
         tfRecebeVagas.setText("jTextField2");
 
+        lCodigoDoEvento.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lCodigoDoEvento.setText("Código do Evento");
+
+        tfRecebeCodigoDoEvento.setText("jTextField1");
+
         javax.swing.GroupLayout pCadastroDeEventosLayout = new javax.swing.GroupLayout(pCadastroDeEventos);
         pCadastroDeEventos.setLayout(pCadastroDeEventosLayout);
         pCadastroDeEventosLayout.setHorizontalGroup(
@@ -422,9 +482,9 @@ public class MenuFuncionario extends javax.swing.JFrame {
                     .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
                         .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
-                                .addComponent(lInformeADataParaRemoverEvento)
+                                .addComponent(lInformeOCodigoParaRemoverEvento)
                                 .addGap(18, 18, 18)
-                                .addComponent(tfRecebeDataDeEventoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfRecebeCodigoDoEventoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43)
                         .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,7 +502,8 @@ public class MenuFuncionario extends javax.swing.JFrame {
                                 .addComponent(lDuracaoDoEvento)
                                 .addComponent(lMetaDeArrecadacaoDoEvento)
                                 .addComponent(lFuncionarioResposavel)
-                                .addComponent(lInformeOTrabalhoNecessarioParaOsVoluntarios))
+                                .addComponent(lInformeOTrabalhoNecessarioParaOsVoluntarios)
+                                .addComponent(lCodigoDoEvento))
                             .addGap(70, 70, 70))
                         .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
                             .addContainerGap()
@@ -463,7 +524,8 @@ public class MenuFuncionario extends javax.swing.JFrame {
                     .addComponent(ftfRecebeData, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                     .addComponent(tfRecebeFuncionarioResposavel, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                     .addComponent(tfRecebeTrabalhoParaVoluntarios)
-                    .addComponent(tfRecebeVagas))
+                    .addComponent(tfRecebeVagas)
+                    .addComponent(tfRecebeCodigoDoEvento))
                 .addGap(123, 123, 123))
         );
         pCadastroDeEventosLayout.setVerticalGroup(
@@ -472,7 +534,11 @@ public class MenuFuncionario extends javax.swing.JFrame {
                 .addComponent(lTitulo)
                 .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addGap(8, 8, 8)
+                        .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lCodigoDoEvento)
+                            .addComponent(tfRecebeCodigoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lValorGastoParaExecutarEvento)
                             .addComponent(tfRecebeValorGastoParExecutarEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -489,9 +555,9 @@ public class MenuFuncionario extends javax.swing.JFrame {
                             .addComponent(lDuracaoDoEvento)
                             .addComponent(tfRecebeDuracaoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lMetaDeArrecadacaoDoEvento)
-                            .addComponent(tfRecebeMetaDeArrecadacaoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfRecebeMetaDeArrecadacaoDoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lFuncionarioResposavel)
@@ -504,20 +570,87 @@ public class MenuFuncionario extends javax.swing.JFrame {
                         .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lVagas)
                             .addComponent(tfRecebeVagas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pCadastroDeEventosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bSalvarEvento)))
                 .addGap(35, 35, 35)
                 .addGroup(pCadastroDeEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfRecebeDataDeEventoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lInformeADataParaRemoverEvento)
+                    .addComponent(tfRecebeCodigoDoEventoParaRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lInformeOCodigoParaRemoverEvento)
                     .addComponent(bRemoveEvento))
                 .addContainerGap())
         );
 
         tpAbas.addTab("Cadastrar Eventos", pCadastroDeEventos);
+
+        jLabel3.setText("Relatório");
+
+        lQuantidadeDeEventosCadastrados.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lQuantidadeDeEventosCadastrados.setText("Quantidade de Eventos Cadastrados: ");
+
+        lsetQuantidadeDeEventos.setText("jLabel5");
+
+        lQuandidadeDeVoluntarios.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lQuandidadeDeVoluntarios.setText("Quantidade de Voluntários CPF: ");
+
+        lsetQuantidaDeVoluntarios.setText("jLabel7");
+
+        bGerarRelatorio.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        bGerarRelatorio.setText("Gerar Relatório");
+        bGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGerarRelatorioActionPerformed(evt);
+            }
+        });
+
+        lQuantidadeDeVoluntariosCNPJ.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lQuantidadeDeVoluntariosCNPJ.setText("Quantidade de Voluntarios CNPJ:");
+
+        lsetVoluntariosCNPJ.setText("jLabel5");
+
+        javax.swing.GroupLayout pRelatorioLayout = new javax.swing.GroupLayout(pRelatorio);
+        pRelatorio.setLayout(pRelatorioLayout);
+        pRelatorioLayout.setHorizontalGroup(
+            pRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRelatorioLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(pRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lQuantidadeDeEventosCadastrados)
+                    .addComponent(lQuandidadeDeVoluntarios)
+                    .addComponent(lQuantidadeDeVoluntariosCNPJ))
+                .addGap(55, 55, 55)
+                .addGroup(pRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lsetVoluntariosCNPJ)
+                    .addComponent(bGerarRelatorio)
+                    .addComponent(jLabel3)
+                    .addComponent(lsetQuantidadeDeEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lsetQuantidaDeVoluntarios, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(176, Short.MAX_VALUE))
+        );
+        pRelatorioLayout.setVerticalGroup(
+            pRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRelatorioLayout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(34, 34, 34)
+                .addGroup(pRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lQuantidadeDeEventosCadastrados)
+                    .addComponent(lsetQuantidadeDeEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(pRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lQuandidadeDeVoluntarios)
+                    .addComponent(lsetQuantidaDeVoluntarios, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(pRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lQuantidadeDeVoluntariosCNPJ)
+                    .addComponent(lsetVoluntariosCNPJ))
+                .addGap(29, 29, 29)
+                .addComponent(bGerarRelatorio)
+                .addGap(0, 344, Short.MAX_VALUE))
+        );
+
+        tpAbas.addTab("Relatório", pRelatorio);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -540,38 +673,45 @@ public class MenuFuncionario extends javax.swing.JFrame {
         CadastroVoluntarioCNPJ voluntariocnpj;
         String nome = tfRecebeNome.getText() ;
         String idade = tfRecebeIdade.getText();
-        String endereço = tfRecebeEndereco.getText();
+        String endereco = tfRecebeEndereco.getText();
         String cpfCNPJ = tfRecebeCPFCNPJ.getText();
         int idadeInteiro = Integer.parseInt(idade);
         String tempoDisponivel =  cbComboEscolhePeriodoDeTempoDisponivel.getSelectedItem().toString();
         int tamanhoDoDocumento = cpfCNPJ.length();
-        int i=listaVoluntarios.size();
+        int i=listaVoluntariosCPF.size();
         if (tamanhoDoDocumento == 11){
-            voluntariocpf = new CadastroVoluntarioCPF(cpfCNPJ,tempoDisponivel, nome, idadeInteiro, endereço);
-            listaVoluntarios.add(voluntariocpf);
-            Login login = new Login(listaVoluntarios);
+            voluntariocpf = new CadastroVoluntarioCPF(cpfCNPJ,tempoDisponivel, nome, idadeInteiro, endereco);
+            listaVoluntariosCPF.add(voluntariocpf);
+            Login login = new Login(listaVoluntariosCPF);
         }
         else if (tamanhoDoDocumento == 14) {
-            voluntariocnpj = new CadastroVoluntarioCNPJ(cpfCNPJ,tempoDisponivel, nome, idadeInteiro, endereço);
-            listaVoluntarios.add(voluntariocnpj);
-            Login login = new Login(listaVoluntarios);
+            voluntariocnpj = new CadastroVoluntarioCNPJ(cpfCNPJ,tempoDisponivel, nome, idadeInteiro, endereco);
+            listaVoluntariosCNPJ.add(voluntariocnpj);
+            Login login = new Login(listaVoluntariosCNPJ);
          }
+        exibir();
         limparCampos();
-        taListarVoluntarios.setText(listaVoluntarios.toString().replace("[", "").replace("]", ""));
     }//GEN-LAST:event_bSalvarVoluntarioActionPerformed
 
     private void bRemoverVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverVoluntarioActionPerformed
         String recebeNome = tfRecebeNumeroParaRemoverVoluntario.getText();
-        for (int i=0; i< listaVoluntarios.size();i++){
-               CadastroGeral indiceNaLista = listaVoluntarios.get(i);
+        for (int i=0; i< listaVoluntariosCPF.size();i++){
+               CadastroVoluntarioCPF indiceNaLista = listaVoluntariosCPF.get(i);
                if (indiceNaLista.getNome().equals(recebeNome)){
-                   listaVoluntarios.remove(indiceNaLista);
+                   listaVoluntariosCPF.remove(indiceNaLista);
                }
+        
+               else {
+                   for (int j=0; j< listaVoluntariosCNPJ.size();j++){
+                       CadastroVoluntarioCNPJ indiceNaListaCNPJ = listaVoluntariosCNPJ.get(j);
+                       if (indiceNaListaCNPJ.getNome().equals(recebeNome)){
+                           listaVoluntariosCNPJ.remove(indiceNaListaCNPJ);
+                       }
+                   }
            }
-        limparCampos(); //verificar se precisa repetir
-        taListarVoluntarios.setText(listaVoluntarios.toString().replace("[", "").replace("]", ""));
-        
-        
+        exibir();
+        limparCampos();
+        }
     }//GEN-LAST:event_bRemoverVoluntarioActionPerformed
 
     private void bSalvarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalvarEventoActionPerformed
@@ -588,22 +728,25 @@ public class MenuFuncionario extends javax.swing.JFrame {
         String tipoTrabalho = tfRecebeTrabalhoParaVoluntarios.getText();
         String vagas = tfRecebeVagas.getText();
         int vagasInt = Integer.parseInt(vagas);
-                
-        for (int i=0; i < listaFuncionarios.size(); i++){
+        String codigoString = tfRecebeCodigoDoEvento.getText();
+        int codigoInt = Integer.parseInt(codigoString);
+        
+        
+        for (int i=0; i <listaFuncionarios.size(); i++){
             Funcionario funcionarioResposavelPeloEvento = listaFuncionarios.get(i); 
             if (funcionarioResposavelPeloEvento.getNome().equals(nomeFuncionarioResposavel)){
                 funcionarioResposavelPeloEvento = listaFuncionarios.get(i);
-                
                 cadastroTrabalho = new CadastroTrabalho(tipoTrabalho,vagasInt);
-                ce = new CadastroEventos(valorGastoParaExecutarEventoDouble, objetivoDoEvento, data, duracaoEvento, metaArrecadacaoEventoDouble, funcionarioResposavelPeloEvento, cadastroTrabalho);
+                ce = new CadastroEventos(codigoInt,valorGastoParaExecutarEventoDouble, objetivoDoEvento, data, duracaoEvento, metaArrecadacaoEventoDouble, funcionarioResposavelPeloEvento, cadastroTrabalho);
                 listaCadastroEventos.add(ce);
-                taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
+                exibir();
                 MenuVoluntario menu = new MenuVoluntario(listaCadastroEventos);
+                MenuGestor menuGestor = new MenuGestor(valorGastoParaExecutarEventoDouble);
                 limparCampos();
                 
             }
-            else {
-                JOptionPane.showMessageDialog(rootPane, "Funcionario Não Encontrado");
+            else  {
+                JOptionPane.showMessageDialog(null, "Funcionario Não Encontrado");
                 limparCampos();
             }
                 
@@ -611,20 +754,26 @@ public class MenuFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_bSalvarEventoActionPerformed
 
     private void bRemoveEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoveEventoActionPerformed
-       String recebeData = tfRecebeDataDeEventoParaRemover.getText();
+       String recebeCodigo = tfRecebeCodigoDoEventoParaRemover.getText();
         for (int i=0; i< listaCadastroEventos.size();i++){
                CadastroEventos indiceNaLista = listaCadastroEventos.get(i);
-               if (indiceNaLista.getDadaDoEvento().equals(recebeData)){
+               if (indiceNaLista.getCodigoEvento()== Integer.parseInt(recebeCodigo)){
                    listaCadastroEventos.remove(indiceNaLista);
                }
            }
+        exibir();
         limparCampos();
-        taListarVoluntarios.setText(listaVoluntarios.toString().replace("[", "").replace("]", ""));
+        
         
     }//GEN-LAST:event_bRemoveEventoActionPerformed
 
     private void bRemoverDoacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRemoverDoacaoActionPerformed
-       
+
+        String recebeIndiceParaRemoverString = tfRecebendoDoacaoParaRemover.getText();
+        recebeIndiceInt = Integer.parseInt(recebeIndiceParaRemoverString);
+        
+        listaDoacao.remove(recebeIndiceInt);
+        exibir();
     }//GEN-LAST:event_bRemoverDoacaoActionPerformed
 
     private void tfRecebeNumeroParaRemoverVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRecebeNumeroParaRemoverVoluntarioActionPerformed
@@ -640,6 +789,76 @@ public class MenuFuncionario extends javax.swing.JFrame {
        menu.setVisible(true);
        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bEnviarRespostaParaDoacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEnviarRespostaParaDoacaoActionPerformed
+        RespostaDaDoacao resposta;
+        taListarDoacoes.setText(listaDoacao.toString());
+        String recebeIndiceParaRemoverString = tfRecebendoDoacaoParaRemover.getText();
+        recebeIndiceInt = Integer.parseInt(recebeIndiceParaRemoverString);
+        Doacao doacao = listaDoacao.get(recebeIndiceInt);
+       
+        resposta = new RespostaDaDoacao(cbRespostaDoacao.getSelectedItem().toString(), doacao);
+        if (cbRespostaDoacao.getSelectedItem().toString().equals("Sim")){
+            MenuGestor menuGestor = new MenuGestor(doacao);
+        }
+        
+        listaRespostaDaDoacao.add(resposta);
+        MenuVoluntario menu = new MenuVoluntario(listaRespostaDaDoacao);
+        limparCampos();
+    }//GEN-LAST:event_bEnviarRespostaParaDoacaoActionPerformed
+
+    private void bImportarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bImportarArquivoActionPerformed
+        String path = "d:\\temp\\ws-eclipse\\aulas\\Projeto\\voluntarioCPF.txt";
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(path))){
+            String linha = br.readLine();
+            
+            while (linha != null ){
+                String [] separacao = linha.split(",");
+                
+                String nome = separacao[0];
+                int idade = Integer.parseInt(separacao[1]);
+                String endereco = separacao[2];
+                String cpfCNPJ = separacao[3];
+                String tempoDisponivel = separacao[4];
+                
+                linha = br.readLine();
+                if (cpfCNPJ.length() == 11){
+                CadastroVoluntarioCPF cadastroCPF = new CadastroVoluntarioCPF(cpfCNPJ, tempoDisponivel, nome, idade, endereco);
+                listaVoluntariosCPF.add(cadastroCPF);
+                MenuVoluntario menu = new MenuVoluntario(cadastroCPF);
+                Login login = new Login(listaVoluntariosCPF);
+                taListarVoluntarios.setText(listaVoluntariosCPF.toString().replace("[", "").replace("]", ""));
+                }
+                else if (cpfCNPJ.length() == 14){
+                    CadastroVoluntarioCNPJ cadastroCNPJ = new CadastroVoluntarioCNPJ(cpfCNPJ, tempoDisponivel, nome, idade, endereco);
+                    listaVoluntariosCNPJ.add(cadastroCNPJ);
+                    MenuVoluntario menu = new MenuVoluntario(cadastroCNPJ);
+                    Login login = new Login(listaVoluntariosCNPJ);
+                    taLstarCNPJ.setText(listaVoluntariosCNPJ.toString().replace("[", "").replace("]", ""));
+                }
+            }
+                
+        }
+        catch (IOException e){
+            System.out.println("Erro: "+e.getMessage());
+        }
+    }//GEN-LAST:event_bImportarArquivoActionPerformed
+
+    private void bGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGerarRelatorioActionPerformed
+        String [] linhas = new String [] {"Quantida De Eventos: ",lsetQuantidadeDeEventos.getText(),"Quantidade De Voluntarios CPF: : ",lsetQuantidaDeVoluntarios.getText(),"Quantidade De Voluntarios CNPJ: ",lsetVoluntariosCNPJ.getText()};
+        
+        String path = "D:\\temp\\ws-eclipse\\aulas\\Projeto\\funcionarioRelatorio.txt";
+        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path,true))){
+            for (String linha : linhas ){
+                bw.write(linha);
+                bw.newLine();
+            }
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_bGerarRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -678,44 +897,60 @@ public class MenuFuncionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bEnviarRespostaParaDoacao;
+    private javax.swing.JButton bGerarRelatorio;
+    private javax.swing.JButton bImportarArquivo;
     private javax.swing.JButton bRemoveEvento;
     private javax.swing.JToggleButton bRemoverDoacao;
     private javax.swing.JButton bRemoverVoluntario;
     private javax.swing.JButton bSalvarEvento;
     private javax.swing.JButton bSalvarVoluntario;
     private javax.swing.JComboBox<String> cbComboEscolhePeriodoDeTempoDisponivel;
+    private javax.swing.JComboBox<String> cbRespostaDoacao;
     private javax.swing.JFormattedTextField ftfRecebeData;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lCPFCNPJ;
+    private javax.swing.JLabel lCodigoDoEvento;
     private javax.swing.JLabel lDataDoEvento;
-    private javax.swing.JLabel lDoacaoNaoRemovidasSeramConsideradasComoAceitas;
     private javax.swing.JLabel lDoacoes;
     private javax.swing.JLabel lDuracaoDoEvento;
     private javax.swing.JLabel lEndereco;
     private javax.swing.JLabel lFuncionarioResposavel;
     private javax.swing.JLabel lIdade;
-    private javax.swing.JLabel lInformeADataParaRemoverEvento;
+    private javax.swing.JLabel lInformeOCodigoParaRemoverEvento;
     private javax.swing.JLabel lInformeONumeroDaDoacaoQueDesejaRemover;
     private javax.swing.JLabel lInformeONumeroParaRemoveroVoluntario;
     private javax.swing.JLabel lInformeOTrabalhoNecessarioParaOsVoluntarios;
     private javax.swing.JLabel lMetaDeArrecadacaoDoEvento;
     private javax.swing.JLabel lNome;
     private javax.swing.JLabel lObjetivoDoEvento;
+    private javax.swing.JLabel lQuandidadeDeVoluntarios;
+    private javax.swing.JLabel lQuantidadeDeEventosCadastrados;
+    private javax.swing.JLabel lQuantidadeDeVoluntariosCNPJ;
     private javax.swing.JLabel lTitulo;
     private javax.swing.JLabel lVagas;
     private javax.swing.JLabel lValorGastoParaExecutarEvento;
+    private javax.swing.JLabel lsetQuantidaDeVoluntarios;
+    private javax.swing.JLabel lsetQuantidadeDeEventos;
+    private javax.swing.JLabel lsetVoluntariosCNPJ;
     private javax.swing.JPanel pAceitarDoacao;
     private javax.swing.JPanel pCadastrarNovoVoluntario;
     private javax.swing.JPanel pCadastroDeEventos;
+    private javax.swing.JPanel pRelatorio;
     private javax.swing.JScrollPane spListarFuncionarios;
     private javax.swing.JTextArea taListaEventos;
     private javax.swing.JTextArea taListarDoacoes;
     private javax.swing.JTextArea taListarVoluntarios;
+    private javax.swing.JTextArea taLstarCNPJ;
     private javax.swing.JTextField tfRecebeCPFCNPJ;
-    private javax.swing.JTextField tfRecebeDataDeEventoParaRemover;
+    private javax.swing.JTextField tfRecebeCodigoDoEvento;
+    private javax.swing.JTextField tfRecebeCodigoDoEventoParaRemover;
     private javax.swing.JTextField tfRecebeDuracaoDoEvento;
     private javax.swing.JTextField tfRecebeEndereco;
     private javax.swing.JTextField tfRecebeFuncionarioResposavel;
@@ -742,10 +977,12 @@ public class MenuFuncionario extends javax.swing.JFrame {
         ftfRecebeData.setText(null);
         tfRecebeDuracaoDoEvento.setText(null);
         tfRecebeFuncionarioResposavel.setText(null);
-        tfRecebeDataDeEventoParaRemover.setText(null);
+        tfRecebeCodigoDoEventoParaRemover.setText(null);
         tfRecebeMetaDeArrecadacaoDoEvento.setText(null);
         tfRecebeTrabalhoParaVoluntarios.setText(null);
         tfRecebeVagas.setText(null);
+        tfRecebeCodigoDoEvento.setText(null);
+        tfRecebendoDoacaoParaRemover.setText(null);
     }
     
    public void setMascara(){
@@ -756,13 +993,16 @@ public class MenuFuncionario extends javax.swing.JFrame {
    
 }
    
-   public void removerElementoDaLista (ArrayList <Object> lista , String elementoParaRemover ){
-       for (int i=0; i< listaVoluntarios.size();i++){
-               CadastroGeral indiceNaLista = listaVoluntarios.get(i);
-               if (indiceNaLista.getNome().equals(elementoParaRemover)){
-                   listaVoluntarios.remove(indiceNaLista);
-               }
-           }
-   }
+  public void exibir (){
+        taListarVoluntarios.setText(listaVoluntariosCPF.toString().replace("[", "").replace("]", ""));
+        taLstarCNPJ.setText(listaVoluntariosCNPJ.toString().replace("[", "").replace("]", ""));
+        taListaEventos.setText(listaCadastroEventos.toString().replace("[", "").replace("]", ""));
+        taListarDoacoes.setText(listaDoacao.toString().replace("[", "").replace("]", ""));
+        lsetQuantidadeDeEventos.setText(String.valueOf(listaCadastroEventos.size()));
+        lsetQuantidaDeVoluntarios.setText(String.valueOf(listaVoluntariosCPF.size()));
+        lsetVoluntariosCNPJ.setText(String.valueOf(listaVoluntariosCNPJ.size()));
+        
+  }
+   
  
 }

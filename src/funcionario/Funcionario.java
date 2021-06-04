@@ -1,11 +1,6 @@
 package funcionario;
 
 import gerais.CadastroGeral;
-import java.util.List;
-
-import gerais.UsuarioLongarNoSistema;
-import java.util.ArrayList;
-import voluntario.Doacao;
 
 public class Funcionario extends CadastroGeral{
         private double salario;
@@ -31,7 +26,7 @@ public class Funcionario extends CadastroGeral{
 
     @Override
     public String toString() {
-        return " Nome: "+getNome()+" ,Salário: "+getSalario()+" ,Endereço: "+getEndereco()+" ,Idade: "+getIdade();
+        return "\n Nome: "+getNome()+" ,Salário: "+getSalario()+" ,Endereço: "+getEndereco()+" ,Idade: "+getIdade()+"\n";
     }	
     
     

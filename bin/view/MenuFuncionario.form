@@ -837,7 +837,7 @@
                           <Component id="bGerarRelatorio" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <Component id="lsetQuantidadeDeEventos" min="-2" pref="177" max="-2" attributes="0"/>
-                          <Component id="lsetQuantidaDeVoluntarios" min="-2" pref="121" max="-2" attributes="0"/>
+                          <Component id="lsetQuantidaDeVoluntários" min="-2" pref="121" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="176" max="32767" attributes="0"/>
                   </Group>
@@ -855,7 +855,7 @@
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lQuandidadeDeVoluntarios" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lsetQuantidaDeVoluntarios" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="lsetQuantidaDeVoluntários" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -896,7 +896,7 @@
                 <Property name="text" type="java.lang.String" value="Quantidade de Volunt&#xe1;rios CPF: "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lsetQuantidaDeVoluntarios">
+            <Component class="javax.swing.JLabel" name="lsetQuantidaDeVolunt&#xe1;rios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="jLabel7"/>
               </Properties>

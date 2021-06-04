@@ -42,7 +42,7 @@ public class RespostaDaDoacao {
 
     @Override
     public String toString() {
-        return "RespostaDaDoacao{" + "RespostaDaDoacao=" + RespostaDaDoacao + ", doacao=" + doacao + '}';
+        return "Resposta Da Doacao" + RespostaDaDoacao + "\n Doacao" + doacao;
     }
     
     

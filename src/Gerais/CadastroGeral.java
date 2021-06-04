@@ -1,9 +1,5 @@
 package gerais;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class CadastroGeral {
         
 	private String nome;
@@ -16,6 +12,7 @@ public class CadastroGeral {
         this.idade = idade;
         this.endereco = endereco;
     }
+
 
     public CadastroGeral() {
     }

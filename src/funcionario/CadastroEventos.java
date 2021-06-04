@@ -1,16 +1,10 @@
 package funcionario;
 
-import gerais.CadastroGeral;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JOptionPane;
-
-
-import voluntario.CadastroVoluntarioCPF;
 
 public class CadastroEventos {
 	
+        private int codigoEvento;
 	private double valorGastoParaExecutaOEvento;
 	private String objetivoDoEvento;
 	private String dataDoEvento;
@@ -18,11 +12,14 @@ public class CadastroEventos {
 	private double metaArrecadacaoEvento;
 	private Funcionario funcionarioResposavelPeloEvento;
         private CadastroTrabalho cadastroTrabalho;
-       
-
-    public static ArrayList<CadastroGeral> cadastroVoluntarios = new ArrayList<>();    
         
-    public CadastroEventos(double valorGastoParaExecutaOEvento, String objetivoDoEvento, String dadaDoEvento, String duracaoEvento, double metaArrecadacaoEvento, Funcionario funcionarioResposavelPeloEvento, CadastroTrabalho cadastroTrabalho) {
+    
+
+    public CadastroEventos() {
+    }
+   
+    public CadastroEventos(int codigoEvento,double valorGastoParaExecutaOEvento, String objetivoDoEvento, String dadaDoEvento, String duracaoEvento, double metaArrecadacaoEvento, Funcionario funcionarioResposavelPeloEvento, CadastroTrabalho cadastroTrabalho ) {
+        this.codigoEvento = codigoEvento;
         this.valorGastoParaExecutaOEvento = valorGastoParaExecutaOEvento;
         this.objetivoDoEvento = objetivoDoEvento;
         this.dataDoEvento = dadaDoEvento;
@@ -32,6 +29,13 @@ public class CadastroEventos {
         this.cadastroTrabalho = cadastroTrabalho;
     }
 
+    
+    
+    /*public CadastroEventos(ArrayList<String> nomeFuncionario) {
+        this.nomeFuncionario = nomeFuncionario;
+    }*/
+      
+    public ArrayList<String> listaCadastroVoluntarios = new ArrayList <> ();
     
     public double getValorGastoParaExecutaOEvento() {
         return valorGastoParaExecutaOEvento;
@@ -97,10 +101,27 @@ public class CadastroEventos {
         this.dataDoEvento = dataDoEvento;
     }
 
+    public int getCodigoEvento() {
+        return codigoEvento;
+    }
+
+    public void setCodigoEvento(int codigoEvento) {
+        this.codigoEvento = codigoEvento;
+    }
+
+
+    public ArrayList<String> getListaCadastroVoluntarios() {
+        return listaCadastroVoluntarios;
+    }
+
+    public void setListaCadastroVoluntarios(ArrayList<String> listaCadastroVoluntarios) {
+        this.listaCadastroVoluntarios = listaCadastroVoluntarios;
+    }
+
     
-    public String cadastroEVerificacaoDeQuantidadeDeVagas (CadastroGeral cg){
-        if (cadastroTrabalho.getQuantidadeVagas()>= cadastroVoluntarios.size()){
-            cadastroVoluntarios.add(cg);
+    public String cadastroEVerificacaoDeQuantidadeDeVagas (String voluntario){
+        if (cadastroTrabalho.getQuantidadeVagas()>= listaCadastroVoluntarios.size()){
+            listaCadastroVoluntarios.add(voluntario);
            int diminuiVagas = cadastroTrabalho.getQuantidadeVagas() - 1;
            cadastroTrabalho.setQuantidadeVagas(diminuiVagas);
            return "Cadastro Efetuado com Sucesso";
@@ -112,7 +133,8 @@ public class CadastroEventos {
     
     @Override
     public String toString() {
-        return "Cadastro Eventos: \n" + " Valor Gasto Para Executa O Evento: " + valorGastoParaExecutaOEvento + ", Objetivo Do Evento: " + objetivoDoEvento + ", Dada Do Evento: " + dataDoEvento+ ", Duracão do Evento: " + duracaoEvento + ", Meta Arrecadacão do Evento: " + metaArrecadacaoEvento + ", Funcionario Resposavel Pelo Evento: " + funcionarioResposavelPeloEvento.getNome() +",Voluntarios No Evento"+ cadastroVoluntarios +"\nCadastro de Trabalho: " + cadastroTrabalho;
+        return "Cadastro Eventos: \n" +"Codigo do Evento: "+codigoEvento+ " Valor Gasto Para Executa O Evento: " + valorGastoParaExecutaOEvento + ", Objetivo Do Evento: " + objetivoDoEvento + ", Dada Do Evento: " + dataDoEvento+ ", Duracão do Evento: " + duracaoEvento + ", Meta Arrecadacão do Evento: " + metaArrecadacaoEvento + ", Funcionario Resposavel Pelo Evento: " + funcionarioResposavelPeloEvento.getNome() +"\nCadastro de Trabalho: " + cadastroTrabalho + "\n Lista de Voluntarios: "+listaCadastroVoluntarios ;
     }
-
+    
+    
 }

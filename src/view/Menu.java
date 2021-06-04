@@ -5,8 +5,6 @@
  */
 package view;
 
-import javax.swing.JButton;
-
 /**
  *
  * @author Victor
@@ -21,7 +19,6 @@ public class Menu extends javax.swing.JFrame {
     static String usuarioVoluntario = "Voluntario";
     public Menu() {
         initComponents();
-  
     }
 
     
@@ -51,7 +48,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         bLoginFuncionario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        bLoginFuncionario.setText("LOGIN FUNCIONÁRIO");
+        bLoginFuncionario.setText("LOGIN FUNCIONARIO");
         bLoginFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bLoginFuncionarioActionPerformed(evt);
@@ -59,7 +56,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         bLoginVoluntario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        bLoginVoluntario.setText("LOGIN VOLUNTÁRIO");
+        bLoginVoluntario.setText("LOGIN VOLUNTARIO");
         bLoginVoluntario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bLoginVoluntarioActionPerformed(evt);

@@ -5,11 +5,14 @@
  */
 package view;
 
-import funcionario.Funcionario;
-import gerais.CadastroGeral;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
+
+import funcionario.Funcionario;
+import gestor.Financeiro;
+import voluntario.Doacao;
 
 /**
  *
@@ -21,11 +24,37 @@ public class MenuGestor extends javax.swing.JFrame {
      * Creates new form MenuGestor
      */
     public static ArrayList <Funcionario> listaFuncionario = new  ArrayList <>();
-    
+    public static Financeiro financeiro;
+    public static double valoresFinanceiros;
+    public static double recebeSalario;
+    Doacao doacao;
+    public static double valorReceita;
+    public static double lucro;
     public MenuGestor() {
         initComponents();
         limpaCampos();
+        financeiro = new Financeiro();
+        lsetDespesasONG.setText(String.valueOf(financeiro.somaDespesas(this.valoresFinanceiros)));
+        lsetReceitaONG.setText(String.valueOf(financeiro.totalReceita(this.valorReceita)));
+        lsetLucro.setText(String.valueOf(financeiro.lucro()));
+        this.valoresFinanceiros = 0;
+        this.valorReceita = 0;
+        taListaFuncionarios.setText(listaFuncionario.toString().replace("[", "").replace("]", ""));
+        
     }
+    public MenuGestor(double valoresFinanceiros){
+        initComponents();
+        this.valoresFinanceiros = valoresFinanceiros;
+    }
+    public MenuGestor(Doacao doacao){
+        initComponents();
+        this.doacao = doacao;
+        valorReceita += this.doacao.getValor();
+        
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,8 +86,12 @@ public class MenuGestor extends javax.swing.JFrame {
         pFinanceiro = new javax.swing.JPanel();
         lFinanceiroDaONG = new javax.swing.JLabel();
         lReceitaDaONG = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lDespesaDaONG = new javax.swing.JLabel();
+        bGerarRelatorio = new javax.swing.JButton();
+        lsetDespesasONG = new javax.swing.JLabel();
+        lsetReceitaONG = new javax.swing.JLabel();
+        lLucro = new javax.swing.JLabel();
+        lsetLucro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,45 +229,72 @@ public class MenuGestor extends javax.swing.JFrame {
         lReceitaDaONG.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lReceitaDaONG.setText("Receita Da ONG: ");
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel1.setText("Despesas Da ONG:");
+        lDespesaDaONG.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lDespesaDaONG.setText("Despesas Da ONG:");
 
-        jButton1.setText("Gerar Relatório ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bGerarRelatorio.setText("Gerar Relatório ");
+        bGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bGerarRelatorioActionPerformed(evt);
             }
         });
+
+        lsetDespesasONG.setText("jLabel1");
+
+        lsetReceitaONG.setText("jLabel1");
+
+        lLucro.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lLucro.setText("Lucro");
+
+        lsetLucro.setText("jLabel1");
 
         javax.swing.GroupLayout pFinanceiroLayout = new javax.swing.GroupLayout(pFinanceiro);
         pFinanceiro.setLayout(pFinanceiroLayout);
         pFinanceiroLayout.setHorizontalGroup(
             pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pFinanceiroLayout.createSequentialGroup()
-                .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFinanceiroLayout.createSequentialGroup()
+                .addComponent(bGerarRelatorio)
+                .addGap(236, 236, 236))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pFinanceiroLayout.createSequentialGroup()
+                    .addGap(200, 200, 200)
+                    .addComponent(lFinanceiroDaONG))
+                .addGroup(pFinanceiroLayout.createSequentialGroup()
+                    .addGap(30, 30, 30)
                     .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lReceitaDaONG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lDespesaDaONG, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                         .addGroup(pFinanceiroLayout.createSequentialGroup()
-                            .addGap(200, 200, 200)
-                            .addComponent(lFinanceiroDaONG))
-                        .addGroup(pFinanceiroLayout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lReceitaDaONG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)))))
-                .addContainerGap(236, Short.MAX_VALUE))
+                            .addComponent(lLucro)
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(18, 18, 18)
+                    .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lsetDespesasONG, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lsetReceitaONG, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lsetLucro))
+                    .addGap(203, 203, 203)))
         );
         pFinanceiroLayout.setVerticalGroup(
             pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pFinanceiroLayout.createSequentialGroup()
                 .addComponent(lFinanceiroDaONG)
-                .addGap(18, 18, 18)
-                .addComponent(lReceitaDaONG, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addGap(118, 118, 118)
-                .addComponent(jButton1)
-                .addGap(0, 242, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lReceitaDaONG, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pFinanceiroLayout.createSequentialGroup()
+                        .addComponent(lsetReceitaONG, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                        .addGap(1, 1, 1)))
+                .addGap(39, 39, 39)
+                .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lDespesaDaONG)
+                    .addComponent(lsetDespesasONG, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(pFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lLucro)
+                    .addComponent(lsetLucro))
+                .addGap(62, 62, 62)
+                .addComponent(bGerarRelatorio)
+                .addGap(0, 232, Short.MAX_VALUE))
         );
 
         tpAbas.addTab("Financeiro", pFinanceiro);
@@ -272,12 +332,19 @@ public class MenuGestor extends javax.swing.JFrame {
 	String endereco = tfRecebeEndereco.getText();
         String salario = tfRecebeSalario.getText();
         int recebeIdade = Integer.parseInt(idade);
-        double recebeSalario = Double.parseDouble(salario);
+        recebeSalario = Double.parseDouble(salario);
         funcionario = new Funcionario(recebeSalario, nome, recebeIdade, endereco);
         menu = new MenuFuncionario(listaFuncionario);
         listaFuncionario.add(funcionario);
+        
+        financeiro = new Financeiro();
+        lsetDespesasONG.setText(String.valueOf(financeiro.somaDespesas(this.recebeSalario)));
+        lsetLucro.setText(String.valueOf(financeiro.lucro()));
+        
+        
         limpaCampos();
         taListaFuncionarios.setText(listaFuncionario.toString().replace("[", "").replace("]", ""));
+        
         
     }//GEN-LAST:event_bBotaoSalvarFuncionarioActionPerformed
 
@@ -299,9 +366,24 @@ public class MenuGestor extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bVoltarMenuPrincipalActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGerarRelatorioActionPerformed
+     
+        String [] linhas = new String [] {"Financeiro:","Despesas: ",lsetDespesasONG.getText(),"Receita: ",lsetReceitaONG.getText(),"Lucro: ",lsetLucro.getText()};
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String path = "D:\\temp\\ws-eclipse\\aulas\\Projeto\\financeiro.txt";
+        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path,true))){
+            for (String linha : linhas ){
+                bw.write(linha);
+                bw.newLine();
+            }
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+        
+        
+        
+    }//GEN-LAST:event_bGerarRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,20 +422,24 @@ public class MenuGestor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBotaoSalvarFuncionario;
+    private javax.swing.JButton bGerarRelatorio;
     private javax.swing.JButton bRemover;
     private javax.swing.JButton bVoltarMenuPrincipal;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lDespesaDaONG;
     private javax.swing.JLabel lEndereco;
     private javax.swing.JLabel lFinanceiroDaONG;
     private javax.swing.JLabel lIdade;
     private javax.swing.JLabel lInfomeONomeParaRemoverFuncionario;
+    private javax.swing.JLabel lLucro;
     private javax.swing.JLabel lNome;
     private javax.swing.JLabel lReceitaDaONG;
     private javax.swing.JLabel lSalario;
     private javax.swing.JLabel lTituloCadastroDeFuncionarios;
+    private javax.swing.JLabel lsetDespesasONG;
+    private javax.swing.JLabel lsetLucro;
+    private javax.swing.JLabel lsetReceitaONG;
     private javax.swing.JPanel pCadastroDeFuncionarios;
     private javax.swing.JPanel pFinanceiro;
     private javax.swing.JTextArea taListaFuncionarios;
@@ -371,6 +457,7 @@ public class MenuGestor extends javax.swing.JFrame {
         tfRecebeNome.setText(null);
         tfRecebeNomeParaRemoverFuncionarioo.setText(null);
         tfRecebeSalario.setText(null);
+        
     } 
 
     
